@@ -12,14 +12,20 @@ import { AuthenticationService } from './services/authentication.service';
 import { NotificationService } from './services/notification.service';
 import { ProfileService } from './services/profile.service';
 import { UserService } from './services/user.service';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule } from '@angular/forms';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     HttpClientModule,
     NotificationModule
   ],
