@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthentiationService } from './services/authentiation.service';
+import { AuthenticationService } from './services/authentication.service';
 import { ProfileService } from './services/profile.service';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { ProfileService } from './services/profile.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuthentiationService, ProfileService],
+  providers: [AuthenticationService, ProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

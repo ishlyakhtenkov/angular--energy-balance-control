@@ -8,7 +8,7 @@ import { User } from '../common/user';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthentiationService {
+export class AuthenticationService {
   
   private host = environment.apiUrl;
   private token: string;
