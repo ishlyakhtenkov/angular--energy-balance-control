@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark box-shadow">
+	<div class="container">
+		<a href="#" class="navbar-brand font-weight-bold">
+			<img src="assets/images/scale.png" width="30" height="30" class="d-inline-block align-top" alt="">
+			Energy Balance Control
+		</a>
+
+		<ul class="navbar-nav me-auto">
+			<li [hidden]="!isAdmin()" class="nav-item">
+				<a class="nav-link" routerLink="/users">
+					<i class="fas fa-users"></i> Users
+				</a>
+			</li>
+			<li [hidden]="!isAdmin()" class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="fa-solid fa-gauge-simple-high"></i> Monitoring
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<li>
+						<a target="_blank" class="dropdown-item" href="http://localhost:9411">
+							<i class="fa-solid fa-dumbbell"></i> Zipkin
+						</a>
+					</li>
+					<li>
+						<a target="_blank" class="dropdown-item" href="#">
+							<i class="fa-solid fa-dumbbell"></i> Eureka
+						</a>
+					</li>
+					<li>
+						<a target="_blank" class="dropdown-item" href="#">
+							<i class="fa-solid fa-dumbbell"></i> Kibana
+						</a>
+					</li>
+					<li>
+						<a target="_blank" class="dropdown-item" href="#">
+							<i class="fa-solid fa-dumbbell"></i> Rabbit MQ
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li [hidden]="!isAdmin()" class="nav-item">
+				<a class="nav-link" routerLink="/users">
+					<i class="fas fa-users"></i> Users
+				</a>
+			</li>
+			<li [hidden]="!isUserLoggedIn()" class="nav-item">
+				<a class="nav-link" routerLink="/meals">
+					<i class="fa-solid fa-utensils"></i> Meals
+				</a>
+			</li>
+			<li [hidden]="!isUserLoggedIn()" class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="fa-solid fa-person-running"></i> Trainings
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<li>
+						<a class="dropdown-item" routerLink="/exercises">
+							<i class="fa-solid fa-dumbbell"></i> Exercises
+						</a>
+					</li>
+					<li>
+						<a class="dropdown-item" routerLink="/exercise-types">
+							<i class="fa-solid fa-person-swimming"></i> Exercise Types
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li [hidden]="!isUserLoggedIn()" class="nav-item">
+				<a class="nav-link" routerLink="/energy-balance">
+					<i class="fa-solid fa-scale-unbalanced"></i> Energy Balance
+				</a>
+			</li>
+		</ul>
+
+		<a *ngIf="isUserLoggedIn()" routerLink="/profile" class="btn btn-sm btn-outline-secondary">
+			<span>Profile</span>
+			<i class="fas fa-user-alt ml-1"></i>
+		</a>
+	</div>
+</nav>
