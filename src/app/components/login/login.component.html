@@ -13,23 +13,23 @@
 
               <form #loginForm="ngForm" (ngSubmit)="onLogin(usernameInput.value, passwordInput.value)">
                 <div class="form-outline form-white mb-4">
-                  <input type="email" autocomplete="username" id="typeEmailX" name="userName" class="form-control form-control-lg" ngModel #usernameInput="ngModel" required />
-                  <label class="form-label" for="typeEmailX">
+                  <input type="email" autocomplete="username" name="userName" class="form-control form-control-lg" ngModel #usernameInput="ngModel" required />
+                  <label class="form-label" for="username">
                     <span *ngIf="!usernameInput.touched || usernameInput.touched && !usernameInput.invalid">Email</span>
                     <span style="color:red;" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter an email</span>
                   </label>
                 </div>
 
                 <div class="form-outline form-white mb-4">
-                  <input type="password" autocomplete="current-password" id="typePasswordX" name="password" class="form-control form-control-lg" ngModel #passwordInput="ngModel" required />
-                  <label class="form-label" for="typePasswordX">
+                  <input type="password" autocomplete="current-password" name="password" class="form-control form-control-lg" ngModel #passwordInput="ngModel" required />
+                  <label class="form-label" for="password">
                     <span *ngIf="!passwordInput.touched || passwordInput.touched && !passwordInput.invalid">Password</span>
-                    <span style="color:red;" *ngIf="passwordInput.invalid && passwordInput.touched">Please enter a password.</span>
+                    <span style="color:red;" *ngIf="passwordInput.invalid && passwordInput.touched">Please enter a password</span>
                   </label>
                 </div>
-                
-                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
 
+                <p class="small mb-5 pb-lg-2"><a class="text-white-50" (click)="makeSendPasswordResetEmailFormGroup()" data-bs-toggle="modal" data-bs-target="#sendPasswordResetEmailModal" href="/resetPassword">Forgot password?</a></p>
+                
                 <button type="submit" [disabled]="loginForm.invalid || showLoading" class="btn btn-outline-light btn-lg px-5">
                   <i *ngIf="showLoading" class="fas fa-spinner fa-spin"></i>
                     <span *ngIf="showLoading">&nbsp;&nbsp;Loading...</span>
@@ -47,7 +47,7 @@
             </div>
 
             <div>
-              <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a></p>
+              <p class="mb-0">Don't have an account? <a routerLink="/register" class="text-white-50 fw-bold">Sign Up</a></p>
             </div>
 
           </div>
@@ -56,3 +56,109 @@
     </div>
   </div>
 </section>
+
+
+<!-- Open Email Not Verified Modal Button -->
+<button [hidden]="true" type="button" id="emailNotVerified-modal-open" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailNotVerifiedModal">
+  Open Email Not Verified Modal
+</button>
+
+<!-- Email Not Verified Modal -->
+<div class="modal fade" id="emailNotVerifiedModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Account Not Activated</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        You have not verified your email. To verify your email, open the link in the confirmation email.<br/>
+        Click the 'Get New Email' button to receive a new confirmation email.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" (click)="makeSendNewVerifyEmailFormGroup()" class="btn btn-primary" data-bs-target="#sendNewVerifyEmailModal" data-bs-toggle="modal" data-bs-dismiss="modal">Get New Email</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Send New Verify Email Modal Form -->
+<div class="modal draggable fade bd-example-modal-lg" id="sendNewVerifyEmailModal" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">Send new verify email</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="sendNewVerifyEmailFormGroup" (ngSubmit)="onSendNewVerifyEmail()">
+        <div class="modal-body text-left">
+          <div>
+            <div formGroupName="newVerifyEmail" class="text-left">
+              <div class="form-outline form-white mb-4">
+                <label class="form-label" for="email">Email</label>
+                <input formControlName="email" type="email" class="form-control form-control-lg">
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                  <div *ngIf="email.errors['required']">
+                    Email is required
+                  </div>
+                  <div *ngIf="email.errors['maxlength']">
+                    Email must be no more than 50 characters long
+                  </div>
+                  <div *ngIf="email.errors['pattern']">
+                    Must be email
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="sendNewVerifyEmail-modal-close">Close</button>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Send Password Reset Email Modal Form -->
+<div class="modal draggable fade bd-example-modal-lg" id="sendPasswordResetEmailModal" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">Send password reset email</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="sendPasswordResetEmailFormGroup" (ngSubmit)="onSendPasswordResetEmail()">
+        <div class="modal-body text-left">
+          <div>
+            <div formGroupName="passwordResetEmail" class="text-left">
+              <div class="form-outline form-white mb-4">
+                <label class="form-label" for="emailForPassReset">Email</label>
+                <input formControlName="emailForPassReset" type="email" class="form-control form-control-lg">
+                <div *ngIf="emailForPassReset.invalid && (emailForPassReset.dirty || emailForPassReset.touched)" class="text-danger">
+                  <div *ngIf="emailForPassReset.errors['required']">
+                    Email is required
+                  </div>
+                  <div *ngIf="emailForPassReset.errors['maxlength']">
+                    Email must be no more than 50 characters long
+                  </div>
+                  <div *ngIf="emailForPassReset.errors['pattern']">
+                    Must be email
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="sendPasswordResetEmail-modal-close">Close</button>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
