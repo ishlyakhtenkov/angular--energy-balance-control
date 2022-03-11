@@ -17,6 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './components/user/user.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RegisterComponent } from './components/register/register.component';
+import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import { EmailVerificationService } from './services/email-verification.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { RegisterComponent } from './components/register/register.component';
     LoginComponent,
     UserComponent,
     HeaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    EmailVerificationComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,7 @@ import { RegisterComponent } from './components/register/register.component';
     NotificationModule
   ],
   providers: [AuthenticationService, ProfileService, UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-     AuthenticationGuard, AdminGuard, NotificationService],
+     AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
