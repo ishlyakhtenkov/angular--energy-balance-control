@@ -20,6 +20,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import { EmailVerificationService } from './services/email-verification.service';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ErrorHandlingService } from './services/error-handling.service';
+import { TestDataCheckingService } from './services/test-data-checking.service';
+import { PasswordResetService } from './services/password-reset.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import { PasswordResetComponent } from './components/password-reset/password-res
     HeaderComponent,
     RegisterComponent,
     EmailVerificationComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,7 @@ import { PasswordResetComponent } from './components/password-reset/password-res
     NotificationModule
   ],
   providers: [AuthenticationService, ProfileService, UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-     AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService],
+     AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService, PasswordResetService, ErrorHandlingService, TestDataCheckingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
