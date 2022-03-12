@@ -72,12 +72,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        You have not verified your email. To verify your email, open the link in the confirmation email.<br/>
-        Click the 'Get New Email' button to receive a new confirmation email.
+        You have not verified your email.<br/> To verify your email, open the link in the confirmation email.<br/>
+        Click the 'Get New Link' button to receive a new confirmation email.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" (click)="makeSendNewVerifyEmailFormGroup()" class="btn btn-primary" data-bs-target="#sendNewVerifyEmailModal" data-bs-toggle="modal" data-bs-dismiss="modal">Get New Email</button>
+        <button type="button" (click)="makeSendNewVerifyEmailFormGroup()" class="btn btn-primary" data-bs-target="#sendNewVerifyEmailModal" data-bs-toggle="modal" data-bs-dismiss="modal">Get New Link</button>
       </div>
     </div>
   </div>
@@ -89,15 +89,21 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center">Send new verify email</h5>
+        <h5 class="modal-title text-center">Send new confirmation email</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form [formGroup]="sendNewVerifyEmailFormGroup" (ngSubmit)="onSendNewVerifyEmail()">
         <div class="modal-body text-left">
+          <p>Verify your email in three easy steps!</p>
+          <ol class="list-unstyled">
+              <li><span class="text-primary text-medium">1. </span>Enter your email address below</li>
+              <li><span class="text-primary text-medium">2. </span>Our system will send you a temporary link</li>
+              <li><span class="text-primary text-medium">3. </span>Use the link to verify your email</li>
+          </ol>
           <div>
             <div formGroupName="newVerifyEmail" class="text-left">
               <div class="form-outline form-white mb-4">
-                <label class="form-label" for="email">Email</label>
+                <label class="form-label" for="email">Enter your email address</label>
                 <input formControlName="email" type="email" class="form-control form-control-lg">
                 <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
                   <div *ngIf="email.errors['required']">
@@ -116,7 +122,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="sendNewVerifyEmail-modal-close">Close</button>
-          <button type="submit" class="btn btn-primary">Send</button>
+          <button type="submit" [disabled]="sendNewVerifyEmailFormGroup.invalid" class="btn btn-primary">Send</button>
         </div>
       </form>
     </div>
@@ -129,15 +135,21 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center">Send password reset email</h5>
+        <h5 class="modal-title text-center">Forgot your password?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form [formGroup]="sendPasswordResetEmailFormGroup" (ngSubmit)="onSendPasswordResetEmail()">
         <div class="modal-body text-left">
+          <p>Change your password in three easy steps!</p>
+          <ol class="list-unstyled">
+            <li><span class="text-primary text-medium">1. </span>Enter your email address below</li>
+            <li><span class="text-primary text-medium">2. </span>Our system will send you a temporary link</li>
+            <li><span class="text-primary text-medium">3. </span>Use the link to reset your password</li>
+          </ol>
           <div>
             <div formGroupName="passwordResetEmail" class="text-left">
               <div class="form-outline form-white mb-4">
-                <label class="form-label" for="emailForPassReset">Email</label>
+                <label class="form-label" for="emailForPassReset">Enter your email address</label>
                 <input formControlName="emailForPassReset" type="email" class="form-control form-control-lg">
                 <div *ngIf="emailForPassReset.invalid && (emailForPassReset.dirty || emailForPassReset.touched)" class="text-danger">
                   <div *ngIf="emailForPassReset.errors['required']">
@@ -156,7 +168,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="sendPasswordResetEmail-modal-close">Close</button>
-          <button type="submit" class="btn btn-primary">Send</button>
+          <button type="submit" [disabled]="sendPasswordResetEmailFormGroup.invalid" class="btn btn-primary">Reset password</button>
         </div>
       </form>
     </div>
