@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit {
       this.profileService.register(newUserTo).subscribe(
         (response: User) => {
           this.router.navigateByUrl("/login");
-          this.notificationService.sendNotification(NotificationType.SUCCESS, `Are you registered! Check your email to confirm registration!`);
+          this.notificationService.sendNotification(NotificationType.SUCCESS, `You have been registered! Check your email to confirm registration!`);
         },
         (errorResponse: HttpErrorResponse) => {
           this.notificationService.sendNotifications(NotificationType.ERROR, errorResponse.error.details);

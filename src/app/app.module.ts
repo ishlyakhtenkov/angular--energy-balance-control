@@ -19,6 +19,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { RegisterComponent } from './components/register/register.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import { EmailVerificationService } from './services/email-verification.service';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { EmailVerificationService } from './services/email-verification.service'
     UserComponent,
     HeaderComponent,
     RegisterComponent,
-    EmailVerificationComponent
+    EmailVerificationComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,

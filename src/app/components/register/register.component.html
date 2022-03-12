@@ -3,7 +3,7 @@
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12">
-          <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card card-registration card-registration-2 mt-3 mb-4" style="border-radius: 15px;">
 
             <form [formGroup]="registerFormGroup" (ngSubmit)="onRegister()">
               <div formGroupName="user" class="text-left">
@@ -139,7 +139,7 @@
           
                         <button type="submit" [disabled]="registerFormGroup.invalid" class="btn btn-light btn-lg mt-4" data-mdb-ripple-color="dark">Register</button>
     
-                        <p class="text-center text-white mt-5 mb-0">Have already an account? <a routerLink="/login" class="fw-bold text-dark"><u>Login here</u></a></p>
+                        <p class="text-center text-white mt-5 mb-1">Have already an account? <a routerLink="/login" class="fw-bold text-dark"><u>Login here</u></a></p>
                       </div>
                     </div>
                   </div>
