@@ -1,6 +1,6 @@
 <!-- User profile -->
 <div class="container mt-2">
-    <h2 class="text-secondary font-weight-bold">Profile</h2>
+    <h2 class="text-secondary font-weight-bold"><i class="fa-solid fa-address-card me-2"></i>Profile</h2>
     <div class="row flex-lg-nowrap">
         <div class="col">
             <div class="row">
@@ -21,7 +21,7 @@
                                                 <small>Roles: {{ prepareRolesForShowing(profile?.roles) }}</small>
                                             </div>
                                             <div class="text-muted custom-checkbox">
-                                                <small><input name="active" type="checkbox" [checked]="profile?.enabled" onclick="return false"  class="custom-control-input">
+                                                <small><input name="active" type="checkbox" [checked]="profile?.enabled" onclick="event.preventDefault()"  class="custom-control-input">
                                                     <label class="custom-control-label ms-1">Verified</label></small>
                                             </div>
                                         </div>

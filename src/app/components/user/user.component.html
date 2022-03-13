@@ -1,1 +1,491 @@
-<p>user works!</p>
+<!-- Users Table -->
+<div class="container mt-2">
+    <div class="row mt-2">
+        <div class="col-6">
+            <h2 class="text-secondary font-weight-bold"><i class="fas fa-users me-2"></i>Users</h2>
+        </div>
+        <div class="col-6 text-end">
+            <div class="btn-group">
+                <div class="form-inline">
+                    <input #inputkeyword type="text" id="inputkeywordField" placeholder="Search users..." class="form-control"
+                        (keyup.enter)="searchUsersByKeyword(inputkeyword.value)">
+                </div>
+                <button type="button" (click)="makeUserAddFormGroup()" class="btn btn-info ms-2 me-2" data-bs-toggle="modal"
+                    data-bs-target="#addUserModal" title="Add new User">
+                    <i class="fas fa-plus"></i> Add User
+                </button>
+            </div>
+            <div class="btn-group">
+                <button type="button" (click)="refresh()" class="btn btn-light" title="Refresh">
+                    <i *ngIf="refreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!refreshing"
+                        class="fas fa-sync"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <table *ngIf="users?.length > 0" class="table">
+        <thead class="table-dark">
+            <tr align="center">
+                <th class="align-middle">Name</th>
+                <th class="align-middle">Email</th>
+                <th class="align-middle">Roles</th>
+                <th class="align-middle">Enabled</th>
+                <th class="align-middle">Registered</th>
+                <th class="align-middle">Gender</th>
+                <th class="align-middle">Weight</th>
+                <th class="align-middle">Growth</th>
+                <th class="align-middle">Age</th>
+                <th class="align-middle">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tempUser of users" align="center">
+                <!-- <td class="align-middle" ng-bind="textFromJSON" style="white-space:pre-line">{{ prepareUserName(tempUser.name) }}</td> -->
+                <td class="align-middle">{{ tempUser.name }}</td>
+                <td class="align-middle">{{ tempUser.email }}</td>
+                <td class="align-middle">
+                    <div *ngFor="let tempRole of tempUser.roles.sort()">
+                        {{ prepareRoleForShowing(tempRole) }}
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div class="form-switch">
+                        <input type="checkbox" role="switch" class="form-check-input" [checked]="tempUser.enabled" [disabled]="tempUser.enabled" id="{{ tempUser.id }}-checkbox" (change)="enableUser(tempUser)"/>
+                        <label class="form-check-label" for="{{ tempUser.id }}-checkbox"></label>
+                    </div>
+                </td>
+                <td class="align-middle">{{ tempUser.registered | date:'mediumDate' }}</td>
+                <td class="align-middle">{{ tempUser.sex == 'MAN' ? 'Male' : 'Female' }}</td>
+                <td class="align-middle">{{ tempUser.weight }}</td>
+                <td class="align-middle">{{ tempUser.growth }}</td>
+                <td class="align-middle">{{ tempUser.age }}</td>
+                <td class="align-middle">
+                    <button (click)="prepareUserEditFormGroup(tempUser)" class="btn btn-outline-info btn-sm"
+                        title="Update User" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                    </button>
+                    <button (click)="deleteUser(tempUser.id, tempUser.name)" class="btn btn-outline-danger btn-sm ms-1"
+                        title="Delete User"><i class="fas fa-trash" aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- if users is empty then display a message -->
+    <div *ngIf="users?.length == 0" class="container">
+        <div class="row">
+            <h4 class="alert alert-warning col-md-12">No users found.</h4>
+        </div>
+    </div>
+
+    <!-- Pagination Area -->
+    <div class="footer-pagination">
+        <div class="row mt-3">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-9" style="padding-left: 30%">
+                        <ngb-pagination [(page)]="pageNumber" [pageSize]="pageSize" [collectionSize]="totalElements"
+                            [maxSize]="5" [boundaryLinks]="false" (pageChange)="getUsersPage()">
+                        </ngb-pagination>
+                    </div>
+
+                    <div class="col-md-3 mt-2 text-end">
+                        <span class="me-2">Page Size</span>
+                        <select (change)="updatePageSize($any($event).target.value)">
+                            <option selected="true">5</option>
+                            <option>10</option>
+                            <option>20</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- User Add Modal Form -->
+<div class="modal draggable fade bd-example-modal-lg" id="addUserModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center">Add New User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="userAddFormGroup" (ngSubmit)="onAddNewUser()">
+                <div class="modal-body text-left">
+                    <div>
+                            <div formGroupName="user" class="text-left">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="name">Name</label>
+                                            <input formControlName="name" type="text" class="form-control" placeholder="Name">
+                                            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+                                                <div *ngIf="name.errors['required'] || name.errors['notOnlyWhitespace']">
+                                                    Name is required
+                                                </div>
+                                                <div *ngIf="name.errors['minlength']">
+                                                    Name must be at least 4 characters long
+                                                </div>
+                                                <div *ngIf="name.errors['maxlength']">
+                                                    Name must be no more than 70 characters long
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="email">Email</label>
+                                            <input formControlName="email" type="email" autocomplete="username" class="form-control"
+                                                placeholder="Email">
+                                            <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                                class="text-danger">
+                                                <div *ngIf="email.errors['required']">
+                                                    Email is required
+                                                </div>
+                                                <div *ngIf="email.errors['maxlength']">
+                                                    Email must be no more than 50 characters long
+                                                </div>
+                                                <div *ngIf="email.errors['pattern']">
+                                                    Must be email
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="roles">Roles</label>
+                                            <ng-select 
+                                                [items]="rolesArray" 
+                                                bindLabel="name"
+                                                bindValue="value"
+                                                [multiple]="true" 
+                                                placeholder="Select roles" 
+                                                formControlName="roles">
+                                            </ng-select>
+                                            <div *ngIf="roles.invalid && (roles.dirty || roles.touched)"
+                                                class="text-danger">
+                                                <div *ngIf="roles.errors['required']">
+                                                    At least one role is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="password">Password</label>
+                                            <input formControlName="password" type="password" autocomplete="new-password"
+                                                class="form-control" placeholder="Password">
+                                            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                                class="text-danger">
+                                                <div *ngIf="password.errors['required'] || password.errors['notOnlyWhitespace']">
+                                                    Password is required
+                                                </div>
+                                                <div *ngIf="password.errors['minlength']">
+                                                    Password must be at least 5 characters long
+                                                </div>
+                                                <div *ngIf="password.errors['maxlength']">
+                                                    Password must be no more than 32 characters long
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="repeatPassword">Confirm Password</label>
+                                            <input formControlName="repeatPassword" type="password" autocomplete="new-password"
+                                                class="form-control" placeholder="Confirm password">
+                                            <div *ngIf="repeatPassword.invalid && (repeatPassword.dirty || repeatPassword.touched)"
+                                                class="text-danger">
+                                                <div
+                                                    *ngIf="repeatPassword.errors['required'] || repeatPassword.errors['notOnlyWhitespace']">
+                                                    Password is required
+                                                </div>
+                                                <div *ngIf="repeatPassword.errors['notEquivalent']">
+                                                    Passwords do not match
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-switch">
+                                                <input type="checkbox" role="switch" formControlName="enabled" class="form-check-input" id="enabledSwitch"/>
+                                                <label class="form-check-label ms-1" for="enabledSwitch">Enabled</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="age">Age</label>
+                                            <input formControlName="age" type="number" class="form-control" placeholder="Age">
+                                            <div *ngIf="age.invalid && (age.dirty || age.touched)" class="text-danger">
+                                              <div *ngIf="age.errors['required']">
+                                                Age is required
+                                              </div>
+                                              <div *ngIf="age.errors['min']">
+                                                Age must be over 1 year old
+                                              </div>
+                                              <div *ngIf="age.errors['max']">
+                                                Age must be no more than 120 years old
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="growth">Growth, cm</label>
+                                            <input formControlName="growth" type="number" class="form-control" placeholder="Growth">
+                                            <div *ngIf="growth.invalid && (growth.dirty || growth.touched)" class="text-danger">
+                                              <div *ngIf="growth.errors['required']">
+                                                Growth is required
+                                              </div>
+                                              <div *ngIf="growth.errors['min']">
+                                                Growth must be over 30 cm
+                                              </div>
+                                              <div *ngIf="growth.errors['max']">
+                                                Growth must be no more than 250 cm
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="weight">Weight, kg</label>
+                                            <input formControlName="weight" type="number" class="form-control" placeholder="Weight">
+                                            <div *ngIf="weight.invalid && (weight.dirty || weight.touched)" class="text-danger">
+                                              <div *ngIf="weight.errors['required']">
+                                                Weight is required
+                                              </div>
+                                              <div *ngIf="weight.errors['min']">
+                                                Weight must be over 10 kg
+                                              </div>
+                                              <div *ngIf="weight.errors['max']">
+                                                Weight must be no more than 1000 kg
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <h6 class="mb-2 pb-1">Gender: </h6>
+                                            <div class="form-check form-check-inline">
+                                              <input type="radio" formControlName="sex" class="form-check-input" value="WOMAN"/>
+                                              <label class="form-check-label">Female</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                              <input type="radio" formControlName="sex" class="form-check-input" value="MAN"/>
+                                              <label class="form-check-label">Male</label>
+                                            </div>
+                                            <div *ngIf="sex.invalid && (sex.dirty || sex.touched)" class="text-danger">
+                                              <div *ngIf="sex.errors['required']">
+                                                Gender is required
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="user-add-modal-close">Close</button>
+                    <button type="submit" class="btn btn-info btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- User Edit Modal Form -->
+<div class="modal draggable fade bd-example-modal-lg" id="editUserModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center">Edit User: {{ editedUserName }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="userEditFormGroup" (ngSubmit)="onUpdateUser()">
+                <div class="modal-body text-left">
+                    <div>
+                            <div formGroupName="user" class="text-left">
+                                <div class="form-group">
+                                    <input formControlName="id" type="hidden">
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="nameEdited">Name</label>
+                                            <input formControlName="nameEdited" type="text" class="form-control" placeholder="Name">
+                                            <div *ngIf="nameEdited.invalid && (nameEdited.dirty || nameEdited.touched)" class="text-danger">
+                                                <div *ngIf="nameEdited.errors['required'] || nameEdited.errors['notOnlyWhitespace']">
+                                                    Name is required
+                                                </div>
+                                                <div *ngIf="nameEdited.errors['minlength']">
+                                                    Name must be at least 4 characters long
+                                                </div>
+                                                <div *ngIf="nameEdited.errors['maxlength']">
+                                                    Name must be no more than 70 characters long
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="emailEdited">Email</label>
+                                            <input formControlName="emailEdited" type="email" autocomplete="username" class="form-control"
+                                                placeholder="Email">
+                                            <div *ngIf="emailEdited.invalid && (emailEdited.dirty || emailEdited.touched)"
+                                                class="text-danger">
+                                                <div *ngIf="emailEdited.errors['required']">
+                                                    Email is required
+                                                </div>
+                                                <div *ngIf="emailEdited.errors['maxlength']">
+                                                    Email must be no more than 50 characters long
+                                                </div>
+                                                <div *ngIf="emailEdited.errors['pattern']">
+                                                    Must be email
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="rolesEdited">Roles</label>
+                                            <ng-select 
+                                                [items]="rolesArray" 
+                                                bindLabel="name"
+                                                bindValue="value"
+                                                [multiple]="true" 
+                                                placeholder="Select roles" 
+                                                formControlName="rolesEdited">
+                                            </ng-select>
+                                            <div *ngIf="rolesEdited.invalid && (rolesEdited.dirty || rolesEdited.touched)"
+                                                class="text-danger">
+                                                <div *ngIf="rolesEdited.errors['required']">
+                                                    At least one role is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-grid gap-2">
+                                            <button type="button" (click)="prepareChangePasswordFormGroup(id.value)" class="btn btn-light  mt-2"
+                                                data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                                Change password
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="ageEdited">Age</label>
+                                            <input formControlName="ageEdited" type="number" class="form-control" placeholder="Age">
+                                            <div *ngIf="ageEdited.invalid && (ageEdited.dirty || ageEdited.touched)" class="text-danger">
+                                              <div *ngIf="ageEdited.errors['required']">
+                                                Age is required
+                                              </div>
+                                              <div *ngIf="ageEdited.errors['min']">
+                                                Age must be over 1 year old
+                                              </div>
+                                              <div *ngIf="ageEdited.errors['max']">
+                                                Age must be no more than 120 years old
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="growthEdited">Growth, cm</label>
+                                            <input formControlName="growthEdited" type="number" class="form-control" placeholder="Growth">
+                                            <div *ngIf="growthEdited.invalid && (growthEdited.dirty || growthEdited.touched)" class="text-danger">
+                                              <div *ngIf="growthEdited.errors['required']">
+                                                Growth is required
+                                              </div>
+                                              <div *ngIf="growthEdited.errors['min']">
+                                                Growth must be over 30 cm
+                                              </div>
+                                              <div *ngIf="growthEdited.errors['max']">
+                                                Growth must be no more than 250 cm
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline form-white mb-4">
+                                            <label class="form-label" for="weightEdited">Weight, kg</label>
+                                            <input formControlName="weightEdited" type="number" class="form-control" placeholder="Weight">
+                                            <div *ngIf="weightEdited.invalid && (weightEdited.dirty || weightEdited.touched)" class="text-danger">
+                                              <div *ngIf="weightEdited.errors['required']">
+                                                Weight is required
+                                              </div>
+                                              <div *ngIf="weightEdited.errors['min']">
+                                                Weight must be over 10 kg
+                                              </div>
+                                              <div *ngIf="weightEdited.errors['max']">
+                                                Weight must be no more than 1000 kg
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <h6 class="mb-2 pb-1">Gender: </h6>
+                                            <div class="form-check form-check-inline">
+                                              <input type="radio" formControlName="sexEdited" class="form-check-input" value="WOMAN"/>
+                                              <label class="form-check-label">Female</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                              <input type="radio" formControlName="sexEdited" class="form-check-input" value="MAN"/>
+                                              <label class="form-check-label">Male</label>
+                                            </div>
+                                            <div *ngIf="sexEdited.invalid && (sexEdited.dirty || sexEdited.touched)" class="text-danger">
+                                              <div *ngIf="sexEdited.errors['required']">
+                                                Gender is required
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="user-edit-modal-close">Close</button>
+                    <button type="submit" class="btn btn-info btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Change Password Modal Form -->
+<div class="modal draggable fade bd-example-modal-lg" id="changePasswordModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center">Change password for {{ editedUserName }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="changePasswordFormGroup" (ngSubmit)="onChangePassword()">
+                <div class="modal-body text-left">
+                    <div>
+                        <div formGroupName="changedPassword" class="text-left">
+                            <div class="form-group">
+                                <input formControlName="userId" type="hidden">
+                            </div>
+                            <div class="form-outline form-white mb-4">
+                                <label class="form-label" for="newPassword">New Password</label>
+                                <input formControlName="newPassword" type="password" class="form-control" placeholder="New password">
+                                <div *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)" class="text-danger ms-1">
+                                    <div *ngIf="newPassword.errors['required'] || newPassword.errors['notOnlyWhitespace']">
+                                        Password is required
+                                    </div>
+                                    <div *ngIf="newPassword.errors['minlength']">
+                                        Password must be at least 5 characters long
+                                    </div>
+                                    <div *ngIf="newPassword.errors['maxlength']">
+                                        Password must be no more than 32 characters long
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-outline form-white mb-4">
+                                <label class="form-label" for="repeatNewPassword">Confirm Password</label>
+                                <input formControlName="repeatNewPassword" type="password" class="form-control"
+                                    placeholder="Confirm password">
+                                <div *ngIf="repeatNewPassword.invalid && (repeatNewPassword.dirty || repeatNewPassword.touched)" class="text-danger ms-1">
+                                    <div *ngIf="repeatNewPassword.errors['required'] || repeatNewPassword.errors['notOnlyWhitespace']">
+                                        Password is required
+                                    </div>
+                                    <div *ngIf="repeatNewPassword.errors['notEquivalent']">
+                                        Passwords do not match
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="change-password-modal-close">Close</button>
+                    <button type="submit" [disabled]="changePasswordFormGroup.invalid" class="btn btn-danger btn-block">Change Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

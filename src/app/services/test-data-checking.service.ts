@@ -10,7 +10,7 @@ export class TestDataCheckingService {
   constructor(private notificationService: NotificationService) { }
 
   checkTestUser(userId: number, message: string): boolean {
-    if (userId == 100000 || userId == 100001) {
+    if (userId == 100000 || userId == 100001 || userId == 100002) {
       this.notificationService.sendNotification(NotificationType.ERROR, message);
       return true;
     }

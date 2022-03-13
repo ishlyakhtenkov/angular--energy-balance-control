@@ -24,6 +24,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ErrorHandlingService } from './services/error-handling.service';
 import { TestDataCheckingService } from './services/test-data-checking.service';
 import { PasswordResetService } from './services/password-reset.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { PasswordResetService } from './services/password-reset.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NotificationModule
+    NotificationModule,
+    NgbModule,
+    NgSelectModule
   ],
   providers: [AuthenticationService, ProfileService, UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
      AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService, PasswordResetService, ErrorHandlingService, TestDataCheckingService],

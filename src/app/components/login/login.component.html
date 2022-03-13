@@ -92,7 +92,7 @@
         <h5 class="modal-title text-center">Send new confirmation email</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form [formGroup]="sendNewVerifyEmailFormGroup" (ngSubmit)="onSendNewVerifyEmail()">
+      <form *ngIf="sendNewVerifyEmailFormGroup" [formGroup]="sendNewVerifyEmailFormGroup" (ngSubmit)="onSendNewVerifyEmail()">
         <div class="modal-body text-left">
           <p>Verify your email in three easy steps!</p>
           <ol class="list-unstyled">
@@ -138,7 +138,7 @@
         <h5 class="modal-title text-center">Forgot your password?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form [formGroup]="sendPasswordResetEmailFormGroup" (ngSubmit)="onSendPasswordResetEmail()">
+      <form *ngIf="sendPasswordResetEmailFormGroup" [formGroup]="sendPasswordResetEmailFormGroup" (ngSubmit)="onSendPasswordResetEmail()">
         <div class="modal-body text-left">
           <p>Change your password in three easy steps!</p>
           <ol class="list-unstyled">
