@@ -2,8 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/common/user';
-import { Messages } from 'src/app/enums/messages';
-import { NotificationType } from 'src/app/enums/notification-type';
+import { Messages } from 'src/app/enums/messages.enum';
+import { NotificationType } from 'src/app/enums/notification-type.enum';
 import { ErrorHandlingService } from 'src/app/services/error-handling.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TestDataCheckingService } from 'src/app/services/test-data-checking.service';
@@ -12,6 +12,7 @@ import { StringUtil } from 'src/app/utils/string-util';
 import { CustomValidators } from 'src/app/validators/custom-validators';
 import * as $ from "jquery";
 import { AdminUserTo } from 'src/app/common/admin-user-to';
+import { Roles } from 'src/app/enums/roles.enum';
 
 @Component({
   selector: 'app-user',
@@ -26,10 +27,11 @@ export class UserComponent implements OnInit {
   editedUserName: string;
   changePasswordFormGroup: FormGroup;
   rolesArray = [
-    { value: 'ADMIN', name: 'Admin' }, 
-    { value: 'USER', name: 'User' }
+    { value: Roles.ADMIN, name: 'Admin' }, 
+    { value: Roles.USER, name: 'User' }
   ];
 
+  //search users properties
   searchModeActivated: boolean = false;
   keyword: string = null;
 
@@ -204,7 +206,7 @@ export class UserComponent implements OnInit {
 
   deleteUser(id: number, name: string) {
     if (confirm(`Are you sure want to delete user '${name}'?`)) {
-      if (!this.testDataCheckingService.checkTestUser(id, Messages.TEST_DATA_CANNOT_BE_CHANGED)) {
+      if (!this.testDataCheckingService.checkTestUser(id, Messages.TEST_USER_CANNOT_BE_DELETED)) {
         this.userService.deleteUser(id).subscribe(
           response => {
             this.notificationService.sendNotification(NotificationType.SUCCESS, `The user '${name}' was deleted`);
@@ -245,7 +247,7 @@ export class UserComponent implements OnInit {
     if (this.userEditFormGroup.invalid) {
       this.userEditFormGroup.markAllAsTouched();
     } else {
-      if (!this.testDataCheckingService.checkTestUser(this.id.value, Messages.TEST_DATA_CANNOT_BE_CHANGED)) {
+      if (!this.testDataCheckingService.checkTestUser(this.id.value, Messages.TEST_USER_DATA_CANNOT_BE_CHANGED)) {
         let adminUserTo = new AdminUserTo(this.id.value, this.nameEdited.value, this.emailEdited.value, this.sexEdited.value, this.weightEdited.value, this.growthEdited.value, this.ageEdited.value, this.rolesEdited.value);
         this.userService.updateUser(adminUserTo).subscribe(
           response => {
@@ -270,7 +272,7 @@ export class UserComponent implements OnInit {
       this.changePasswordFormGroup.markAllAsTouched();
     } else {
       let userId = this.changePasswordFormGroup.get('changedPassword.userId').value;
-      if (!this.testDataCheckingService.checkTestUser(userId, "Test user's password cannot be changed!")) {
+      if (!this.testDataCheckingService.checkTestUser(userId, Messages.TEST_USER_PASSWORD_CANNOT_BE_CHANGED)) {
         let newPassword = this.newPassword.value;
         this.userService.changeUserPassword(userId, newPassword).subscribe(
           response => {

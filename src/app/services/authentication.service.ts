@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../common/user';
+import { Roles } from '../enums/roles.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -68,7 +69,7 @@ export class AuthenticationService {
 
   isAdmin(): boolean {
     if (this.isLoggedIn()) {
-      return this.getUserFromLocalCache().roles.includes('ADMIN');
+      return this.getUserFromLocalCache().roles.includes(Roles.ADMIN);
     } else {
       return false;
     }

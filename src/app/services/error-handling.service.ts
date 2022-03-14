@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { NotificationType } from '../enums/notification-type';
+import { NotificationType } from '../enums/notification-type.enum';
 import { AuthenticationService } from './authentication.service';
 import { NotificationService } from './notification.service';
 

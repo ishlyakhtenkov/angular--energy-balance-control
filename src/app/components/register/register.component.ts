@@ -4,7 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { NewUserTo } from 'src/app/common/new-user-to';
 import { User } from 'src/app/common/user';
-import { NotificationType } from 'src/app/enums/notification-type';
+import { NotificationType } from 'src/app/enums/notification-type.enum';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { CustomValidators } from 'src/app/validators/custom-validators';
@@ -18,10 +19,15 @@ export class RegisterComponent implements OnInit {
 
   registerFormGroup: FormGroup;
 
-  constructor(private profileService: ProfileService, private notificationService: NotificationService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private profileService: ProfileService, private notificationService: NotificationService, private authenticationService: AuthenticationService,
+              private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
-    this.makeRegisterFormGroup();
+    if (this.authenticationService.isLoggedIn()) {
+      this.router.navigateByUrl("/login");
+    } else {
+      this.makeRegisterFormGroup();
+    }
   }
 
   makeRegisterFormGroup() {

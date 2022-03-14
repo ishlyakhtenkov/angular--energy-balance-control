@@ -17,7 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authenticationService: AuthenticationService) {}
 
   intercept(httpRequest: HttpRequest<unknown>, httpHandler: HttpHandler): Observable<HttpEvent<any>> {
-    if (httpRequest.url.includes(`${this.host}/user-service/api/profile/login`)) {
+    if (this.checkFreePath(httpRequest.url)) {
       return httpHandler.handle(httpRequest);
     }
     
@@ -29,5 +29,27 @@ export class AuthInterceptor implements HttpInterceptor {
     } else {
       return httpHandler.handle(httpRequest);
     }
+  }
+
+  private checkFreePath(url: string): boolean {
+    if (url.includes(`${this.host}/user-service/api/profile/login`)) {
+      return true;
+    }
+    if (url.includes(`${this.host}/user-service/api/profile/register`)) {
+      return true;
+    }
+    if (url.includes(`${this.host}/user-service/api/profile/password/reset`)) {
+      return true;
+    }
+    if (url.includes(`${this.host}/user-service/api/profile/email/verify`)) {
+      return true;
+    }
+    if (url.includes(`${this.host}/password-reset-service/api/password/reset`)) {
+      return true;
+    }
+    if (url.includes(`${this.host}/email-verification-service/api/email/verify`)) {
+      return true;
+    }
+    return false;
   }
 }

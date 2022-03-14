@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NotificationType } from '../enums/notification-type';
+import { NotificationType } from '../enums/notification-type.enum';
 import { NotificationService } from './notification.service';
 
 @Injectable({

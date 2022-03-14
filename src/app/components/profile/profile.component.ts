@@ -4,8 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { User } from 'src/app/common/user';
-import { Messages } from 'src/app/enums/messages';
-import { NotificationType } from 'src/app/enums/notification-type';
+import { Messages } from 'src/app/enums/messages.enum';
+import { NotificationType } from 'src/app/enums/notification-type.enum';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ErrorHandlingService } from 'src/app/services/error-handling.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -89,7 +89,7 @@ export class ProfileComponent implements OnInit {
     if (this.changePasswordFormGroup.invalid) {
       this.changePasswordFormGroup.markAllAsTouched();
     } else {
-      if (!this.testDataCheckingService.checkTestUser(this.profile.id, Messages.TEST_DATA_CANNOT_BE_CHANGED)) {
+      if (!this.testDataCheckingService.checkTestUser(this.profile.id, Messages.TEST_USER_PASSWORD_CANNOT_BE_CHANGED)) {
         let newPassword = this.changePasswordFormGroup.get('changedPassword.newPassword').value;
         this.profileService.changePassword(newPassword).subscribe(
           response => {
@@ -115,7 +115,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onDeleteProfile(): void {
-    if (!this.testDataCheckingService.checkTestUser(this.profile.id, Messages.TEST_DATA_CANNOT_BE_CHANGED)) {
+    if (!this.testDataCheckingService.checkTestUser(this.profile.id, Messages.TEST_USER_CANNOT_BE_DELETED)) {
       this.profileService.deleteProfile().subscribe(
         response => {
           this.notificationService.sendNotification(NotificationType.SUCCESS, `Your profile has been deleted!`);
@@ -139,7 +139,7 @@ export class ProfileComponent implements OnInit {
     if (this.profileEditFormGroup.invalid) {
       this.profileEditFormGroup.markAllAsTouched();
     } else {
-      if (!this.testDataCheckingService.checkTestUser(this.profile.id, Messages.TEST_DATA_CANNOT_BE_CHANGED)) {
+      if (!this.testDataCheckingService.checkTestUser(this.profile.id, Messages.TEST_USER_DATA_CANNOT_BE_CHANGED)) {
         let updatedProfile = new UserTo(this.id.value, this.nameEdited.value, this.sexEdited.value, this.weightEdited.value, this.growthEdited.value, this.ageEdited.value);
         this.profileService.updateProfile(updatedProfile).subscribe(
           response => {

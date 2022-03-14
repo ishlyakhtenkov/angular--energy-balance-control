@@ -2,7 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationType } from 'src/app/enums/notification-type';
+import { NotificationType } from 'src/app/enums/notification-type.enum';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { PasswordResetService } from 'src/app/services/password-reset.service';
 import { CustomValidators } from 'src/app/validators/custom-validators';
@@ -16,20 +17,24 @@ export class PasswordResetComponent implements OnInit {
   token: string;
   resetPasswordFormGroup: FormGroup;
 
-  constructor(private passwordResetService: PasswordResetService, private notificationService: NotificationService,
+  constructor(private passwordResetService: PasswordResetService, private notificationService: NotificationService, private authenticationService: AuthenticationService,
               private activatedRoute: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(
-      params => {
-        this.token = params['token'];
-        if (!this.token) {
-          this.router.navigateByUrl("/login");
-          this.notificationService.sendNotification(NotificationType.ERROR, 'Bad password reset token');
+    if (this.authenticationService.isLoggedIn()) {
+      this.router.navigateByUrl("/login");
+    } else {
+      this.activatedRoute.queryParams.subscribe(
+        params => {
+          this.token = params['token'];
+          if (!this.token) {
+            this.router.navigateByUrl("/login");
+            this.notificationService.sendNotification(NotificationType.ERROR, 'Bad password reset token');
+          }
         }
-      }
-    );
-    this.makeResetPasswordFormGroup();
+      );
+      this.makeResetPasswordFormGroup();
+    }
   }
 
   onResetPassword() {

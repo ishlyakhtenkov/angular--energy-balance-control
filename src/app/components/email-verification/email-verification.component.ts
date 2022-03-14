@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationType } from 'src/app/enums/notification-type';
+import { NotificationType } from 'src/app/enums/notification-type.enum';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EmailVerificationService } from 'src/app/services/email-verification.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
@@ -12,16 +13,20 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class EmailVerificationComponent implements OnInit {
 
-  constructor(private emailVerificationService: EmailVerificationService, private notificationService: NotificationService, 
+  constructor(private emailVerificationService: EmailVerificationService, private notificationService: NotificationService, private authenticationService: AuthenticationService, 
               private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(
-      params => {
-        const token = params['token'];
-        this.verifyEmail(token);
-      }
-    );
+    if (this.authenticationService.isLoggedIn()) {
+      this.router.navigateByUrl("/login");
+    } else {
+      this.activatedRoute.queryParams.subscribe(
+        params => {
+          const token = params['token'];
+          this.verifyEmail(token);
+        }
+      );
+    }
   }
 
   private verifyEmail(token: string) {

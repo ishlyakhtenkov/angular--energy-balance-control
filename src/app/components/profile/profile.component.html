@@ -21,8 +21,10 @@
                                                 <small>Roles: {{ prepareRolesForShowing(profile?.roles) }}</small>
                                             </div>
                                             <div class="text-muted custom-checkbox">
-                                                <small><input name="active" type="checkbox" [checked]="profile?.enabled" onclick="event.preventDefault()"  class="custom-control-input">
-                                                    <label class="custom-control-label ms-1">Verified</label></small>
+                                                <small>
+                                                    <input name="active" type="checkbox" [checked]="profile?.enabled" onclick="event.preventDefault()" class="custom-control-input">
+                                                    <label class="custom-control-label ms-1">Verified</label>
+                                                </small>
                                             </div>
                                         </div>
                                     </div>
@@ -33,7 +35,7 @@
                                             <form *ngIf="profile" [formGroup]="profileEditFormGroup" (ngSubmit)="onProfileUpdate()">
                                                 <div formGroupName="profileGroup" class="text-left">
                                                     <div class="col-md-6 mb-4">
-                                                        <label class="form-label" for="nameEdited">Gender</label><br/>
+                                                        <label class="form-label" for="nameEdited">Gender</label><br />
                                                         <div class="form-check form-check-inline">
                                                             <input type="radio" formControlName="sexEdited" class="form-check-input" value="WOMAN" />
                                                             <label class="form-check-label">Female</label>
@@ -49,31 +51,30 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="form-outline form-white mb-4">
-                                                            <label class="form-label" for="nameEdited">Name</label>
-                                                            <input formControlName="nameEdited" type="text" class="form-control">
-                                                            <div *ngIf="nameEdited.invalid && (nameEdited.dirty || nameEdited.touched)" class="text-danger">
-                                                                <div *ngIf="nameEdited.errors['required'] || nameEdited.errors['notOnlyWhitespace']">
-                                                                    Name is required
-                                                                </div>
-                                                                <div *ngIf="nameEdited.errors['minlength']">
-                                                                    Name must be at least 4 characters long
-                                                                </div>
-                                                                <div *ngIf="nameEdited.errors['maxlength']">
-                                                                    Name must be no more than 70 characters long
+                                                        <div class="col-6">
+                                                            <div class="form-outline form-white mb-4">
+                                                                <label class="form-label" for="nameEdited">Name</label>
+                                                                <input formControlName="nameEdited" type="text" class="form-control">
+                                                                <div *ngIf="nameEdited.invalid && (nameEdited.dirty || nameEdited.touched)" class="text-danger">
+                                                                    <div *ngIf="nameEdited.errors['required'] || nameEdited.errors['notOnlyWhitespace']">
+                                                                        Name is required
+                                                                    </div>
+                                                                    <div *ngIf="nameEdited.errors['minlength']">
+                                                                        Name must be at least 4 characters long
+                                                                    </div>
+                                                                    <div *ngIf="nameEdited.errors['maxlength']">
+                                                                        Name must be no more than 70 characters long
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="form-outline form-white mb-4">
-                                                            <label class="form-label" for="email">Email</label>
-                                                            <input type="text" readonly name="email" [defaultValue]="profile?.email" required
-                                                                class="form-control">
+                                                        <div class="col-6">
+                                                            <div class="form-outline form-white mb-4">
+                                                                <label class="form-label" for="email">Email</label>
+                                                                <input type="text" readonly name="email" [defaultValue]="profile?.email" required class="form-control">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
                                                     <div class="row">
                                                         <div class="col-4">
                                                             <div class="form-outline form-white mb-4">
@@ -188,8 +189,7 @@
 </div>
 
 <!-- Change Password Modal Form -->
-<div class="modal draggable fade bd-example-modal-lg" id="changePasswordModal" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal draggable fade bd-example-modal-lg" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -204,7 +204,8 @@
                                 <label class="form-label" for="newPassword">New Password</label>
                                 <input formControlName="newPassword" type="password" class="form-control" placeholder="New password">
                                 <div *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)" class="text-danger ms-1">
-                                    <div *ngIf="newPassword.errors['required'] || newPassword.errors['notOnlyWhitespace']">
+                                    <div
+                                        *ngIf="newPassword.errors['required'] || newPassword.errors['notOnlyWhitespace']">
                                         Password is required
                                     </div>
                                     <div *ngIf="newPassword.errors['minlength']">
@@ -217,8 +218,7 @@
                             </div>
                             <div class="form-outline form-white mb-4">
                                 <label class="form-label" for="repeatNewPassword">Confirm Password</label>
-                                <input formControlName="repeatNewPassword" type="password" class="form-control"
-                                    placeholder="Confirm password">
+                                <input formControlName="repeatNewPassword" type="password" class="form-control" placeholder="Confirm password">
                                 <div *ngIf="repeatNewPassword.invalid && (repeatNewPassword.dirty || repeatNewPassword.touched)" class="text-danger ms-1">
                                     <div *ngIf="repeatNewPassword.errors['required'] || repeatNewPassword.errors['notOnlyWhitespace']">
                                         Password is required
@@ -241,8 +241,7 @@
 </div>
 
 <!-- Delete Profile Question Modal -->
-<div class="modal draggable fade bd-example-modal-lg" id="deleteProfileQuestionModal" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal draggable fade bd-example-modal-lg" id="deleteProfileQuestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -250,8 +249,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>This action will delete your account and all related data including meals, trainings and energy balance calculations!</p>
-                
+                <p>This action will delete your account and all related data including meals, trainings and energy
+                    balance calculations!</p>
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" (click)="onDeleteProfile()" class="btn btn-danger" data-bs-dismiss="modal">YES</button>
