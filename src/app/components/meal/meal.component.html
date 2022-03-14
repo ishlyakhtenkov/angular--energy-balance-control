@@ -1,0 +1,198 @@
+<!-- Meals Table -->
+<div class="container mt-2">
+    <div class="row mt-2">
+        <div class="col-6">
+            <h2 class="text-secondary font-weight-bold"><i class="fa-solid fa-utensils me-2"></i>Meals</h2>
+        </div>
+        <div class="col-6 text-end">
+            <div class="btn-group">
+                <button type="button" (click)="makeMealAddFormGroup()" class="btn btn-info ms-2 me-2" data-bs-toggle="modal" data-bs-target="#addMealModal" title="Add new Meal">
+                    <i class="fas fa-plus"></i> Add Meal
+                </button>
+            </div>
+            <div class="btn-group">
+                <button type="button" (click)="refresh()" class="btn btn-light" title="Refresh">
+                    <i *ngIf="refreshing" class="fas fa-sync fa-spin"></i>
+                    <i *ngIf="!refreshing" class="fas fa-sync"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <table *ngIf="meals?.length > 0" class="table">
+        <thead class="table-dark">
+            <tr align="center">
+                <th class="align-middle">Date/Time</th>
+                <th class="align-middle">Description</th>
+                <th class="align-middle">Calories</th>
+                <th class="align-middle">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tempMeal of meals" align="center">
+                <td class="align-middle">{{ tempMeal.dateTime | date:'YYYY-MM-dd HH:mm' }}</td>
+                <td class="align-middle">{{ tempMeal.description }}</td>
+                <td class="align-middle">{{ tempMeal.calories }}</td>
+                <td class="align-middle">
+                    <button (click)="prepareMealEditFormGroup(tempMeal)" class="btn btn-outline-info btn-sm" title="Update Meal" data-bs-toggle="modal" data-bs-target="#editMealModal">
+                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                    </button>
+                    <button (click)="deleteMeal(tempMeal.id, tempMeal.description)" class="btn btn-outline-danger btn-sm ms-1" title="Delete Meal">
+                        <i class="fas fa-trash" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- if meals is empty then display a message -->
+    <div *ngIf="meals?.length == 0" class="container">
+        <div class="row">
+            <h4 class="alert alert-warning col-md-12">No meals found.</h4>
+        </div>
+    </div>
+
+    <!-- Pagination Area -->
+    <div class="footer-pagination">
+        <div class="row mt-3">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-9" style="padding-left: 30%">
+                        <ngb-pagination [(page)]="pageNumber" [pageSize]="pageSize" [collectionSize]="totalElements" [maxSize]="5" [boundaryLinks]="false" (pageChange)="listMeals()"></ngb-pagination>
+                    </div>
+                    <div class="col-md-3 mt-2 text-end">
+                        <span class="me-2">Page Size</span>
+                        <select (change)="updatePageSize($any($event).target.value)">
+                            <option selected="true">5</option>
+                            <option>10</option>
+                            <option>20</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Meal Add Modal Form -->
+<div class="modal draggable fade bd-example-modal-lg" id="addMealModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center">Add New Meal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="mealAddFormGroup" (ngSubmit)="onAddNewMeal()">
+                <div class="modal-body text-left">
+                    <div formGroupName="meal" class="text-left">
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="dateTime">Date/Time</label>
+                            <input formControlName="dateTime" type="datetime-local" class="form-control" />
+                            <div *ngIf="dateTime.invalid && (dateTime.dirty || dateTime.touched)" class="text-danger">
+                                <div *ngIf="dateTime.errors['required']">
+                                    Date/Time is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="description">Description</label>
+                            <input formControlName="description" type="text" class="form-control" placeholder="Description">
+                            <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+                                <div *ngIf="description.errors['required'] || description.errors['notOnlyWhitespace']">
+                                    Description is required
+                                </div>
+                                <div *ngIf="description.errors['minlength']">
+                                    Description must be at least 2 characters long
+                                </div>
+                                <div *ngIf="description.errors['maxlength']">
+                                    Description must be no more than 120 characters long
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="calories">Calories</label>
+                            <input formControlName="calories" type="number" class="form-control" placeholder="Calories" />
+                            <div *ngIf="calories.invalid && (calories.dirty || calories.touched)" class="text-danger">
+                                <div *ngIf="calories.errors['required']">
+                                    Calories is required
+                                </div>
+                                <div *ngIf="calories.errors['min']">
+                                    Calories must be over 1
+                                </div>
+                                <div *ngIf="calories.errors['max']">
+                                    Calories must be no more than 5000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="meal-add-modal-close">Close</button>
+                    <button type="submit" class="btn btn-info btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Meal Edit Modal Form -->
+<div class="modal draggable fade bd-example-modal-lg" id="editMealModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center">Edit Meal: {{ editedMealDescription }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="mealEditFormGroup" (ngSubmit)="onUpdateMeal()">
+                <div class="modal-body text-left">
+                    <div formGroupName="meal" class="text-left">
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="dateTimeEdited">Date/Time</label>
+                            <input formControlName="dateTimeEdited" type="datetime-local" class="form-control" />
+                            <div *ngIf="dateTimeEdited.invalid && (dateTimeEdited.dirty || dateTimeEdited.touched)" class="text-danger">
+                                <div *ngIf="dateTimeEdited.errors['required']">
+                                    Date/Time is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="descriptionEdited">Description</label>
+                            <input formControlName="descriptionEdited" type="text" class="form-control" placeholder="Description">
+                            <div *ngIf="descriptionEdited.invalid && (descriptionEdited.dirty || descriptionEdited.touched)" class="text-danger">
+                                <div *ngIf="descriptionEdited.errors['required'] || descriptionEdited.errors['notOnlyWhitespace']">
+                                    Description is required
+                                </div>
+                                <div *ngIf="descriptionEdited.errors['minlength']">
+                                    Description must be at least 2 characters long
+                                </div>
+                                <div *ngIf="descriptionEdited.errors['maxlength']">
+                                    Description must be no more than 120 characters long
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="caloriesEdited">Calories</label>
+                            <input formControlName="caloriesEdited" type="number" class="form-control" placeholder="Calories" />
+                            <div *ngIf="caloriesEdited.invalid && (caloriesEdited.dirty || caloriesEdited.touched)" class="text-danger">
+                                <div *ngIf="caloriesEdited.errors['required']">
+                                    Calories is required
+                                </div>
+                                <div *ngIf="caloriesEdited.errors['min']">
+                                    Calories must be over 1
+                                </div>
+                                <div *ngIf="caloriesEdited.errors['max']">
+                                    Calories must be no more than 5000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="meal-edit-modal-close">Close</button>
+                    <button type="submit" class="btn btn-info btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

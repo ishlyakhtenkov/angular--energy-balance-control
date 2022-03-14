@@ -26,6 +26,8 @@ import { TestDataCheckingService } from './services/test-data-checking.service';
 import { PasswordResetService } from './services/password-reset.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MealComponent } from './components/meal/meal.component';
+import { MealService } from './services/meal.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     RegisterComponent,
     EmailVerificationComponent,
     PasswordResetComponent,
-    ProfileComponent
+    ProfileComponent,
+    MealComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgSelectModule
   ],
   providers: [AuthenticationService, ProfileService, UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-     AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService, PasswordResetService, ErrorHandlingService, TestDataCheckingService],
+     AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService, PasswordResetService, ErrorHandlingService, TestDataCheckingService, MealService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
