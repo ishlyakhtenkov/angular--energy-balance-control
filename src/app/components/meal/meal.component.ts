@@ -87,7 +87,7 @@ export class MealComponent implements OnInit {
     });
   }
 
-  // Submit Add Meal From
+  // Submit Add Meal Form
   onAddNewMeal() {
     if (this.mealAddFormGroup.invalid) {
       this.mealAddFormGroup.markAllAsTouched();
@@ -106,7 +106,7 @@ export class MealComponent implements OnInit {
     }
   }
 
-  // Submit Meal Edit From
+  // Submit Meal Edit Form
   onUpdateMeal() {
     if (this.mealEditFormGroup.invalid) {
       this.mealEditFormGroup.markAllAsTouched();

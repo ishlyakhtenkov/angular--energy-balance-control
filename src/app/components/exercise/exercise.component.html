@@ -1,0 +1,198 @@
+<!-- Exercises Table -->
+<div class="container mt-2">
+    <div class="row mt-2">
+        <div class="col-6">
+            <h2 class="text-secondary font-weight-bold"><i class="fa-solid fa-dumbbell me-2"></i>Exercises</h2>
+        </div>
+        <div class="col-6 text-end">
+            <div class="btn-group">
+                <button type="button" (click)="makeExerciseAddFormGroup()" class="btn btn-info ms-2 me-2" data-bs-toggle="modal" data-bs-target="#addExerciseModal" title="Add new Exercise">
+                    <i class="fas fa-plus"></i> Add Exercise
+                </button>
+            </div>
+            <div class="btn-group">
+                <button type="button" (click)="refresh()" class="btn btn-light" title="Refresh">
+                    <i *ngIf="refreshing" class="fas fa-sync fa-spin"></i>
+                    <i *ngIf="!refreshing" class="fas fa-sync"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <table *ngIf="exercises?.length > 0" class="table">
+        <thead class="table-dark">
+            <tr align="center">
+                <th class="align-middle">Date/Time</th>
+                <th class="align-middle">Exercise Type</th>
+                <th class="align-middle">Measure</th>
+                <th class="align-middle">Amount</th>
+                <th class="align-middle">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tempExercise of exercises" align="center">
+                <td class="align-middle">{{ tempExercise.dateTime | date:'YYYY-MM-dd HH:mm' }}</td>
+                <td class="align-middle">{{ tempExercise.exerciseType.description }}</td>
+                <td class="align-middle">{{ tempExercise.exerciseType.measure }}</td>
+                <td class="align-middle">{{ tempExercise.amount }}</td>
+                <td class="align-middle">
+                    <button (click)="prepareExerciseEditFormGroup(tempExercise)" class="btn btn-outline-info btn-sm" title="Update Exercise" data-bs-toggle="modal" data-bs-target="#editExerciseModal">
+                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                    </button>
+                    <button (click)="deleteExercise(tempExercise.id, tempExercise.exerciseType.description)" class="btn btn-outline-danger btn-sm ms-1" title="Delete Exercise">
+                        <i class="fas fa-trash" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- if exercises is empty then display a message -->
+    <div *ngIf="exercises?.length == 0" class="container">
+        <div class="row">
+            <h4 class="alert alert-warning col-md-12">No exercises found.</h4>
+        </div>
+    </div>
+
+    <!-- Pagination Area -->
+    <div class="footer-pagination">
+        <div class="row mt-3">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-9" style="padding-left: 30%">
+                        <ngb-pagination [(page)]="pageNumber" [pageSize]="pageSize" [collectionSize]="totalElements" [maxSize]="5" [boundaryLinks]="false" (pageChange)="listExercises()"></ngb-pagination>
+                    </div>
+                    <div class="col-md-3 mt-2 text-end">
+                        <span class="me-2">Page Size</span>
+                        <select (change)="updatePageSize($any($event).target.value)">
+                            <option selected="true">5</option>
+                            <option>10</option>
+                            <option>20</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Exercise Add Modal Form -->
+<div class="modal draggable fade bd-example-modal-lg" id="addExerciseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center">Add New Exercise</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="exerciseAddFormGroup" (ngSubmit)="onAddNewExercise()">
+                <div class="modal-body text-left">
+                    <div formGroupName="exercise" class="text-left">
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="dateTime">Date/Time</label>
+                            <input formControlName="dateTime" type="datetime-local" class="form-control" />
+                            <div *ngIf="dateTime.invalid && (dateTime.dirty || dateTime.touched)" class="text-danger">
+                                <div *ngIf="dateTime.errors['required']">
+                                    Date/Time is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="exerciseType">Exercise Type</label>
+                            <select formControlName="exerciseType" class="form-select">
+                                <option value="" selected disabled hidden>Choose Exercise Type</option>
+                                <option *ngFor="let exerciseType of exerciseTypes" [ngValue]="exerciseType">
+                                    {{ exerciseType.description }}
+                                </option>
+                            </select>
+                            <div *ngIf="exerciseType.invalid && (exerciseType.dirty || exerciseType.touched)" class="text-danger">
+                                <div *ngIf="exerciseType.errors['required']">
+                                    Exercise Type is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="amount">Amount</label>
+                            <input formControlName="amount" type="number" class="form-control" placeholder="Amount" />
+                            <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="text-danger">
+                                <div *ngIf="amount.errors['required']">
+                                    Amount is required
+                                </div>
+                                <div *ngIf="amount.errors['min']">
+                                    Amount must be over 1
+                                </div>
+                                <div *ngIf="amount.errors['max']">
+                                    Amount must be no more than 100000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="exercise-add-modal-close">Close</button>
+                    <button type="submit" class="btn btn-info btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Exercise Edit Modal Form -->
+<div class="modal draggable fade bd-example-modal-lg" id="editExerciseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center">Edit Exercise: {{ editedExerciseDescription }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="exerciseEditFormGroup" (ngSubmit)="onUpdateExercise()">
+                <div class="modal-body text-left">
+                    <div formGroupName="exercise" class="text-left">
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="dateTimeEdited">Date/Time</label>
+                            <input formControlName="dateTimeEdited" type="datetime-local" class="form-control" />
+                            <div *ngIf="dateTimeEdited.invalid && (dateTimeEdited.dirty || dateTimeEdited.touched)" class="text-danger">
+                                <div *ngIf="dateTimeEdited.errors['required']">
+                                    Date/Time is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="exerciseTypeEdited">Exercise Type</label>
+                            <select formControlName="exerciseTypeEdited" class="form-select">
+                                <option value="" selected disabled hidden>Choose Exercise Type</option>
+                                <option *ngFor="let exerciseType of exerciseTypes" [ngValue]="exerciseType">
+                                    {{ exerciseType.description }}
+                                </option>
+                            </select>
+                            <div *ngIf="exerciseTypeEdited.invalid && (exerciseTypeEdited.dirty || exerciseTypeEdited.touched)" class="text-danger">
+                                <div *ngIf="exerciseTypeEdited.errors['required']">
+                                    Exercise Type is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                            <label class="form-label" for="amountEdited">Amount</label>
+                            <input formControlName="amountEdited" type="number" class="form-control" placeholder="Amount" />
+                            <div *ngIf="amountEdited.invalid && (amountEdited.dirty || amountEdited.touched)" class="text-danger">
+                                <div *ngIf="amountEdited.errors['required']">
+                                    Amount is required
+                                </div>
+                                <div *ngIf="amountEdited.errors['min']">
+                                    Amount must be over 1
+                                </div>
+                                <div *ngIf="amountEdited.errors['max']">
+                                    Amount must be no more than 100000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="exercise-edit-modal-close">Close</button>
+                    <button type="submit" class="btn btn-info btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -30,6 +30,8 @@ import { MealComponent } from './components/meal/meal.component';
 import { MealService } from './services/meal.service';
 import { ExerciseTypeComponent } from './components/exercise-type/exercise-type.component';
 import { ExerciseTypeService } from './services/exercise-type.service';
+import { ExerciseComponent } from './components/exercise/exercise.component';
+import { ExerciseService } from './services/exercise.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { ExerciseTypeService } from './services/exercise-type.service';
     PasswordResetComponent,
     ProfileComponent,
     MealComponent,
-    ExerciseTypeComponent
+    ExerciseTypeComponent,
+    ExerciseComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,7 @@ import { ExerciseTypeService } from './services/exercise-type.service';
   ],
   providers: [AuthenticationService, ProfileService, UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
      AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService, PasswordResetService, ErrorHandlingService, TestDataCheckingService, 
-     MealService, ExerciseTypeService],
+     MealService, ExerciseTypeService, ExerciseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
