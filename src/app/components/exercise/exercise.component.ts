@@ -112,7 +112,6 @@ export class ExerciseComponent implements OnInit {
     );
   }
 
-  //TODO Add deleted exercise type to exercise types array
   private getSelectedExerciseType(exercise: Exercise): ExerciseType {
     let selectedExerciseTypeIndex = this.exerciseTypes.findIndex(exerciseType => exerciseType.id === exercise.exerciseType.id);
     if (selectedExerciseTypeIndex != -1) {
