@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import { ExerciseTypeComponent } from './components/exercise-type/exercise-type.component';
 import { LoginComponent } from './components/login/login.component';
 import { MealComponent } from './components/meal/meal.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuard]},
   {path: 'users', component: UserComponent, canActivate: [AdminGuard]},
   {path: 'meals', component: MealComponent, canActivate: [AuthenticationGuard]},
+  {path: 'exercise-types', component: ExerciseTypeComponent, canActivate: [AuthenticationGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];

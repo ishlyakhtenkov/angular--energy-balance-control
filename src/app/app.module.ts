@@ -28,6 +28,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MealComponent } from './components/meal/meal.component';
 import { MealService } from './services/meal.service';
+import { ExerciseTypeComponent } from './components/exercise-type/exercise-type.component';
+import { ExerciseTypeService } from './services/exercise-type.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { MealService } from './services/meal.service';
     EmailVerificationComponent,
     PasswordResetComponent,
     ProfileComponent,
-    MealComponent
+    MealComponent,
+    ExerciseTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { MealService } from './services/meal.service';
     NgSelectModule
   ],
   providers: [AuthenticationService, ProfileService, UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-     AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService, PasswordResetService, ErrorHandlingService, TestDataCheckingService, MealService],
+     AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService, PasswordResetService, ErrorHandlingService, TestDataCheckingService, 
+     MealService, ExerciseTypeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
