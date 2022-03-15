@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import { EnergyBalanceComponent } from './components/energy-balance/energy-balance.component';
 import { ExerciseTypeComponent } from './components/exercise-type/exercise-type.component';
 import { ExerciseComponent } from './components/exercise/exercise.component';
 import { LoginComponent } from './components/login/login.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'meals', component: MealComponent, canActivate: [AuthenticationGuard]},
   {path: 'exercise-types', component: ExerciseTypeComponent, canActivate: [AuthenticationGuard]},
   {path: 'exercises', component: ExerciseComponent, canActivate: [AuthenticationGuard]},
+  {path: 'energy-balance', component: EnergyBalanceComponent, canActivate: [AuthenticationGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];

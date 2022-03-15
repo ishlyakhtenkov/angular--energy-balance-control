@@ -32,6 +32,12 @@ import { ExerciseTypeComponent } from './components/exercise-type/exercise-type.
 import { ExerciseTypeService } from './services/exercise-type.service';
 import { ExerciseComponent } from './components/exercise/exercise.component';
 import { ExerciseService } from './services/exercise.service';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import interactionPlugin from '@fullcalendar/interaction';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { EnergyBalanceComponent } from './components/energy-balance/energy-balance.component';
+
+FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
 @NgModule({
   declarations: [
@@ -45,7 +51,8 @@ import { ExerciseService } from './services/exercise.service';
     ProfileComponent,
     MealComponent,
     ExerciseTypeComponent,
-    ExerciseComponent
+    ExerciseComponent,
+    EnergyBalanceComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +62,8 @@ import { ExerciseService } from './services/exercise.service';
     HttpClientModule,
     NotificationModule,
     NgbModule,
-    NgSelectModule
+    NgSelectModule,
+    FullCalendarModule
   ],
   providers: [AuthenticationService, ProfileService, UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
      AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService, PasswordResetService, ErrorHandlingService, TestDataCheckingService, 
