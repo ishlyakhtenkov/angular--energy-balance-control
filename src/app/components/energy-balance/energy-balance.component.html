@@ -1,3 +1,40 @@
 <div class="container mt-2">
+    <div class="row mt-2">
+        <div class="col-6">
+            <h2 class="text-secondary font-weight-bold"><i class="fa-solid fa-scale-unbalanced me-2"></i>Energy Balance Reports</h2>
+        </div>
+    </div>
     <full-calendar [options]="calendarOptions"></full-calendar>
+</div>
+
+<!-- Open Energy Balance Report Modal Button -->
+<button [hidden]="true" type="button" id="energyBalanceReport-modal-open" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#energyBalanceReportModal">
+    Open Energy Balance Report Modal
+</button>
+
+<!-- Energy Balance Report Modal -->
+<div class="modal fade" id="energyBalanceReportModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Energy Balance Report: {{ energyBalanceReport?.date }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li><span [ngClass]="{'alert-danger rounded': energyBalanceReport?.mealCalories == -1}">{{ (energyBalanceReport?.mealCalories != -1) ? 'Calories from meals: ' + energyBalanceReport?.mealCalories : 'Failed to get meals calories data' }}</span></li>
+                <li><span [ngClass]="{'alert-danger rounded': energyBalanceReport?.bxCalories == -1}">{{ (energyBalanceReport?.bxCalories != -1) ? 'Calories burned for basal metabolism: ' + energyBalanceReport?.bxCalories : 'Failed to get basal metabolism calories data' }}</span></li>
+                <li><span [ngClass]="{'alert-danger rounded': energyBalanceReport?.trainingCalories == -1}">{{ (energyBalanceReport?.trainingCalories != -1) ? 'Calories burned for trainings: ' + energyBalanceReport?.trainingCalories : 'Failed to get trainings calories data' }}</span></li>
+            </ul>
+            <p *ngIf="energyBalanceReport?.energyBalanceValue != null" class="ms-3">Energy Balance Value: {{ energyBalanceReport?.mealCalories }} - {{ energyBalanceReport?.bxCalories }} - {{ energyBalanceReport?.trainingCalories }} = {{ energyBalanceReport?.energyBalanceValue }}</p>
+            <div *ngIf="energyBalanceReport?.energyBalanceValue > 0" class="alert text-center alert-danger">{{ energyBalanceReport?.message }}</div>
+            <div *ngIf="energyBalanceReport?.energyBalanceValue == 0" class="alert text-center alert-success">{{ energyBalanceReport?.message }}</div>
+            <div *ngIf="energyBalanceReport?.energyBalanceValue == null" class="alert text-center alert-secondary">{{ energyBalanceReport?.message }}</div>
+            <div *ngIf="energyBalanceReport?.energyBalanceValue < 0" class="alert text-center alert-info">{{ energyBalanceReport?.message }}</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
 </div>

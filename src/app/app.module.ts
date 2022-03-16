@@ -36,6 +36,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { EnergyBalanceComponent } from './components/energy-balance/energy-balance.component';
+import { EnergyBalanceService } from './services/energy-balance.service';
 
 FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
@@ -67,7 +68,7 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
   ],
   providers: [AuthenticationService, ProfileService, UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
      AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService, PasswordResetService, ErrorHandlingService, TestDataCheckingService, 
-     MealService, ExerciseTypeService, ExerciseService],
+     MealService, ExerciseTypeService, ExerciseService, EnergyBalanceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
