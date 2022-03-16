@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8028'
+  apiUrl: 'http://localhost:8028',
+  eurekaUrl: 'http://localhost:8027',
+  zipkinUrl: 'http://localhost:9411',
+  kibanaUrl: 'http://localhost:5601',
+  rabbitMqUrl: 'http://localhost:15672'
 };
 
 /*

@@ -17,23 +17,33 @@
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<li>
-						<a target="_blank" class="dropdown-item" href="http://localhost:9411">
+						<a target="_blank" class="dropdown-item" href="{{ environment.zipkinUrl }}">
 							<i class="fa-solid fa-dumbbell"></i> Zipkin
 						</a>
 					</li>
 					<li>
-						<a target="_blank" class="dropdown-item" href="#">
+						<a target="_blank" class="dropdown-item" href="{{ environment.eurekaUrl }}">
 							<i class="fa-solid fa-dumbbell"></i> Eureka
 						</a>
 					</li>
 					<li>
-						<a target="_blank" class="dropdown-item" href="#">
+						<a target="_blank" class="dropdown-item" href="{{ environment.kibanaUrl }}">
 							<i class="fa-solid fa-dumbbell"></i> Kibana
 						</a>
 					</li>
 					<li>
-						<a target="_blank" class="dropdown-item" href="#">
+						<a target="_blank" class="dropdown-item" href="{{ environment.rabbitMqUrl }}">
 							<i class="fa-solid fa-dumbbell"></i> Rabbit MQ
+						</a>
+					</li>
+					<li>
+						<a target="_blank" class="dropdown-item" href="#">
+							<i class="fa-solid fa-dumbbell"></i> Services Health
+						</a>
+					</li>
+					<li>
+						<a target="_blank" class="dropdown-item" href="#">
+							<i class="fa-solid fa-dumbbell"></i> Update Config
 						</a>
 					</li>
 				</ul>
