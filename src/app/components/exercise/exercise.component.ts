@@ -74,7 +74,7 @@ export class ExerciseComponent implements OnInit {
     this.exerciseAddFormGroup = this.formBuilder.group({
       exercise: this.formBuilder.group({
         dateTime: new FormControl(formatDate(Date.now(), 'yyyy-MM-ddTHH:mm', 'en-Us'), [Validators.required]),
-        exerciseType: new FormControl('', [Validators.required]),
+        exerciseType: new FormControl(null, [Validators.required]),
         amount: new FormControl('', [Validators.required, Validators.min(1), Validators.max(100000)])
       })
     });
@@ -85,7 +85,7 @@ export class ExerciseComponent implements OnInit {
       exercise: this.formBuilder.group({
         id: [''],
         dateTimeEdited: new FormControl('', [Validators.required]),
-        exerciseTypeEdited: new FormControl('', [Validators.required]),
+        exerciseTypeEdited: new FormControl(null, [Validators.required]),
         amountEdited: new FormControl('', [Validators.required, Validators.min(1), Validators.max(100000)])
       })
     });

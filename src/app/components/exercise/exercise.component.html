@@ -25,6 +25,7 @@
                 <th class="align-middle">Exercise Type</th>
                 <th class="align-middle">Measure</th>
                 <th class="align-middle">Amount</th>
+                <th class="align-middle">Calories burned</th>
                 <th class="align-middle">Actions</th>
             </tr>
         </thead>
@@ -34,6 +35,7 @@
                 <td class="align-middle">{{ tempExercise.exerciseType.description }}</td>
                 <td class="align-middle">{{ tempExercise.exerciseType.measure }}</td>
                 <td class="align-middle">{{ tempExercise.amount }}</td>
+                <td class="align-middle">{{ tempExercise.amount * tempExercise.exerciseType.caloriesBurned }}</td>
                 <td class="align-middle">
                     <button (click)="prepareExerciseEditFormGroup(tempExercise)" class="btn btn-outline-info btn-sm" title="Update Exercise" data-bs-toggle="modal" data-bs-target="#editExerciseModal">
                         <i class="fa fa-pencil-alt" aria-hidden="true"></i>
@@ -99,12 +101,7 @@
                         </div>
                         <div class="form-outline form-white mb-4">
                             <label class="form-label" for="exerciseType">Exercise Type</label>
-                            <select formControlName="exerciseType" class="form-select">
-                                <option value="" selected disabled hidden>Choose Exercise Type</option>
-                                <option *ngFor="let exerciseType of exerciseTypes" [ngValue]="exerciseType">
-                                    {{ exerciseType.description }}
-                                </option>
-                            </select>
+                            <ng-select [items]="exerciseTypes" bindLabel="description" [multiple]="false" placeholder="Select Exercise Type" formControlName="exerciseType"></ng-select>
                             <div *ngIf="exerciseType.invalid && (exerciseType.dirty || exerciseType.touched)" class="text-danger">
                                 <div *ngIf="exerciseType.errors['required']">
                                     Exercise Type is required
@@ -159,12 +156,7 @@
                         </div>
                         <div class="form-outline form-white mb-4">
                             <label class="form-label" for="exerciseTypeEdited">Exercise Type</label>
-                            <select formControlName="exerciseTypeEdited" class="form-select">
-                                <option value="" selected disabled hidden>Choose Exercise Type</option>
-                                <option *ngFor="let exerciseType of exerciseTypes" [ngValue]="exerciseType">
-                                    {{ exerciseType.description }}
-                                </option>
-                            </select>
+                            <ng-select [items]="exerciseTypes" bindLabel="description" [multiple]="false" placeholder="Select Exercise Type" formControlName="exerciseTypeEdited"></ng-select>
                             <div *ngIf="exerciseTypeEdited.invalid && (exerciseTypeEdited.dirty || exerciseTypeEdited.touched)" class="text-danger">
                                 <div *ngIf="exerciseTypeEdited.errors['required']">
                                     Exercise Type is required
