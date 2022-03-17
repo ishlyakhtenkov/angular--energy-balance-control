@@ -37,6 +37,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { EnergyBalanceComponent } from './components/energy-balance/energy-balance.component';
 import { EnergyBalanceService } from './services/energy-balance.service';
+import { ServerStatusService } from './services/server-status.service';
+import { ServerStatusComponent } from './components/server-status/server-status.component';
 
 FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
@@ -53,7 +55,8 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     MealComponent,
     ExerciseTypeComponent,
     ExerciseComponent,
-    EnergyBalanceComponent
+    EnergyBalanceComponent,
+    ServerStatusComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,7 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
   ],
   providers: [AuthenticationService, ProfileService, UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
      AuthenticationGuard, AdminGuard, NotificationService, EmailVerificationService, PasswordResetService, ErrorHandlingService, TestDataCheckingService, 
-     MealService, ExerciseTypeService, ExerciseService, EnergyBalanceService],
+     MealService, ExerciseTypeService, ExerciseService, EnergyBalanceService, ServerStatusService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

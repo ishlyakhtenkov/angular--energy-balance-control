@@ -24,6 +24,14 @@ export class ErrorHandlingService {
     }
   }
 
+  handleErrorResponseWithoutNotification(errorResponse: HttpErrorResponse): void {
+    if (this.authError(errorResponse)) {
+      this.authenticationService.logout();
+      this.notificationService.sendNotifications(NotificationType.ERROR, errorResponse.error.details);
+      this.router.navigateByUrl("/login");
+    }
+  }
+
   handleErrorResponseWithButtonClick(errorResponse: HttpErrorResponse, buttonId: string): void {
     if (this.authError(errorResponse)) {
       document.getElementById(buttonId).click();

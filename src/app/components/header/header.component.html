@@ -17,33 +17,28 @@
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<li>
+						<a class="dropdown-item" routerLink="/server-status">
+							<i class="fa-solid fa-heart-pulse"></i> Services Status
+						</a>
+					</li>
+					<li>
 						<a target="_blank" class="dropdown-item" href="{{ environment.zipkinUrl }}">
-							<i class="fa-solid fa-dumbbell"></i> Zipkin
+							<i class="fa-regular fa-circle-up"></i> Zipkin
 						</a>
 					</li>
 					<li>
 						<a target="_blank" class="dropdown-item" href="{{ environment.eurekaUrl }}">
-							<i class="fa-solid fa-dumbbell"></i> Eureka
+							<i class="fa-solid fa-share-nodes"></i> Eureka
 						</a>
 					</li>
 					<li>
 						<a target="_blank" class="dropdown-item" href="{{ environment.kibanaUrl }}">
-							<i class="fa-solid fa-dumbbell"></i> Kibana
+							<i class="fa-brands fa-servicestack"></i> Kibana
 						</a>
 					</li>
 					<li>
 						<a target="_blank" class="dropdown-item" href="{{ environment.rabbitMqUrl }}">
-							<i class="fa-solid fa-dumbbell"></i> Rabbit MQ
-						</a>
-					</li>
-					<li>
-						<a target="_blank" class="dropdown-item" href="#">
-							<i class="fa-solid fa-dumbbell"></i> Services Health
-						</a>
-					</li>
-					<li>
-						<a target="_blank" class="dropdown-item" href="#">
-							<i class="fa-solid fa-dumbbell"></i> Update Config
+							<i class="fa-brands fa-angellist"></i> Rabbit MQ
 						</a>
 					</li>
 				</ul>

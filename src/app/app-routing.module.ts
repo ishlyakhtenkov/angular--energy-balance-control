@@ -9,6 +9,7 @@ import { MealComponent } from './components/meal/meal.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ServerStatusComponent } from './components/server-status/server-status.component';
 import { UserComponent } from './components/user/user.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthenticationGuard } from './guards/authentication.guard';
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'exercise-types', component: ExerciseTypeComponent, canActivate: [AuthenticationGuard]},
   {path: 'exercises', component: ExerciseComponent, canActivate: [AuthenticationGuard]},
   {path: 'energy-balance', component: EnergyBalanceComponent, canActivate: [AuthenticationGuard]},
+  {path: 'server-status', component: ServerStatusComponent, canActivate: [AdminGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];

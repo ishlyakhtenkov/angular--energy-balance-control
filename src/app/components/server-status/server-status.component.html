@@ -1,0 +1,52 @@
+<!-- Services Status -->
+<div class="container mt-2">
+    <div class="row mt-2">
+        <div class="col-6">
+            <h2 class="text-secondary font-weight-bold"><i class="fa-solid fa-heart-pulse me-2"></i>Services Status</h2>
+        </div>
+        <div class="col-6 text-end">
+            <div class="btn-group">
+                <button type="button" (click)="updateConfiguration()" class="btn btn-warning ms-2 me-2" title="Update services configuration">
+                    <i *ngIf="updating" class="fas fa-sync fa-spin"></i>
+                    <i *ngIf="!updating" class="fas fa-sync"></i>
+                    <span *ngIf="updating">&nbsp;&nbsp;Updating configuration...</span>
+                    <span *ngIf="!updating">&nbsp;&nbsp;Update Configuration</span>  
+                </button>
+            </div>
+            <div class="btn-group">
+                <button type="button" (click)="refresh()" class="btn btn-light" title="Refresh">
+                    <i *ngIf="refreshing" class="fas fa-sync fa-spin"></i>
+                    <i *ngIf="!refreshing" class="fas fa-sync"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <table class="table">
+                <thead class="table-dark">
+                    <tr align="center">
+                        <th class="align-middle">Service name</th>
+                        <th class="align-middle">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td class="align-middle">User Service</td>
+                        <td class="align-middle">
+                            <i *ngIf="userServiceStatus" class="fa-solid fa-circle-up text-success"></i>
+                            <i *ngIf="!userServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td class="align-middle">Meal Service</td>
+                        <td class="align-middle">{{ mealServiceStatus }}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
