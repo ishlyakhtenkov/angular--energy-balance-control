@@ -22,31 +22,89 @@
         </div>
     </div>
     <div class="row mt-2">
-        <div class="col-3"></div>
-        <div class="col-6">
+        <div class="col-4"></div>
+        <div class="col-4">
             <table class="table">
                 <thead class="table-dark">
                     <tr align="center">
-                        <th class="align-middle">Service name</th>
+                        <th class="align-middle">Service</th>
                         <th class="align-middle">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="text-center">
-                        <td class="align-middle">User Service</td>
+                        <td class="align-middle">BX Service</td>
                         <td class="align-middle">
-                            <i *ngIf="userServiceStatus" class="fa-solid fa-circle-up text-success"></i>
-                            <i *ngIf="!userServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
+                            <i *ngIf="bxServiceStatus != null && bxServiceStatus" class="fa-solid fa-circle-up text-success"></i>
+                            <i *ngIf="bxServiceStatus != null && !bxServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td class="align-middle">Config Server</td>
+                        <td class="align-middle">
+                            <i *ngIf="configServerServiceStatus != null && configServerServiceStatus" class="fa-solid fa-circle-up text-success"></i>
+                            <i *ngIf="configServerServiceStatus != null && !configServerServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td class="align-middle">Email Verification Service</td>
+                        <td class="align-middle">
+                            <i *ngIf="emailVerificationServiceStatus != null && emailVerificationServiceStatus" class="fa-solid fa-circle-up text-success"></i>
+                            <i *ngIf="emailVerificationServiceStatus != null && !emailVerificationServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td class="align-middle">Energy Balance Service</td>
+                        <td class="align-middle">
+                            <i *ngIf="energyBalanceServiceStatus != null && energyBalanceServiceStatus" class="fa-solid fa-circle-up text-success"></i>
+                            <i *ngIf="energyBalanceServiceStatus != null && !energyBalanceServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td class="align-middle">Eureka Server</td>
+                        <td class="align-middle">
+                            <i *ngIf="eurekaServerServiceStatus != null && eurekaServerServiceStatus" class="fa-solid fa-circle-up text-success"></i>
+                            <i *ngIf="eurekaServerServiceStatus != null && !eurekaServerServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td class="align-middle">Gateway Server</td>
+                        <td class="align-middle">
+                            <i *ngIf="gatewayServerServiceStatus != null && gatewayServerServiceStatus" class="fa-solid fa-circle-up text-success"></i>
+                            <i *ngIf="gatewayServerServiceStatus != null && !gatewayServerServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
                         </td>
                     </tr>
                     <tr class="text-center">
                         <td class="align-middle">Meal Service</td>
-                        <td class="align-middle">{{ mealServiceStatus }}</td>
+                        <td class="align-middle">
+                            <i *ngIf="mealServiceStatus != null && mealServiceStatus" class="fa-solid fa-circle-up text-success"></i>
+                            <i *ngIf="mealServiceStatus != null && !mealServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
+                        </td>
                     </tr>
-
+                    <tr class="text-center">
+                        <td class="align-middle">Password Reset Service</td>
+                        <td class="align-middle">
+                            <i *ngIf="passwordResetServiceStatus != null && passwordResetServiceStatus" class="fa-solid fa-circle-up text-success"></i>
+                            <i *ngIf="passwordResetServiceStatus != null && !passwordResetServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td class="align-middle">Training Service</td>
+                        <td class="align-middle">
+                            <i *ngIf="trainingServiceStatus != null && trainingServiceStatus" class="fa-solid fa-circle-up text-success"></i>
+                            <i *ngIf="trainingServiceStatus != null && !trainingServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td class="align-middle">User Service</td>
+                        <td class="align-middle">
+                            <i *ngIf="userServiceStatus != null && userServiceStatus" class="fa-solid fa-circle-up text-success"></i>
+                            <i *ngIf="userServiceStatus != null && !userServiceStatus" class="fa-solid fa-circle-down text-danger"></i>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-3"></div>
+        <div class="col-4"></div>
     </div>
 </div>

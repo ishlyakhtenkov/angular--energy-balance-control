@@ -11,7 +11,7 @@ import { ServerStatusService } from 'src/app/services/server-status.service';
   styleUrls: ['./server-status.component.css']
 })
 export class ServerStatusComponent implements OnInit {
-  refreshing: boolean;
+  refreshing: boolean = true;
   updating: boolean;
   bxServiceStatus: boolean;
   configServerServiceStatus: boolean;
@@ -40,14 +40,40 @@ export class ServerStatusComponent implements OnInit {
     this.checkUserServiceStatus();
   }
 
+  getRefreshingValue(): boolean {
+    return (this.bxServiceStatus == null) || (this.configServerServiceStatus == null) || (this.emailVerificationServiceStatus == null) || (this.energyBalanceServiceStatus == null) ||
+           (this.eurekaServerServiceStatus == null) || (this.gatewayServerServiceStatus == null) || (this.mealServiceStatus == null) || (this.passwordResetServiceStatus == null) ||
+           (this.trainingServiceStatus == null) || (this.userServiceStatus == null)
+  }
+
   refresh() {
     this.refreshing = true;
+    this.bxServiceStatus = null;
+    this.configServerServiceStatus = null;
+    this.emailVerificationServiceStatus = null;
+    this.energyBalanceServiceStatus = null;
+    this.eurekaServerServiceStatus = null;
+    this.gatewayServerServiceStatus = null;
+    this.mealServiceStatus = null;
+    this.passwordResetServiceStatus = null;
+    this.trainingServiceStatus = null;
+    this.userServiceStatus = null;
     this.ngOnInit();
   }
 
   updateConfiguration() {
     if (confirm(`Are you sure want to update services configuration?`)) {
       this.updating = true;
+      this.bxServiceStatus = null;
+      this.configServerServiceStatus = null;
+      this.emailVerificationServiceStatus = null;
+      this.energyBalanceServiceStatus = null;
+      this.eurekaServerServiceStatus = null;
+      this.gatewayServerServiceStatus = null;
+      this.mealServiceStatus = null;
+      this.passwordResetServiceStatus = null;
+      this.trainingServiceStatus = null;
+      this.userServiceStatus = null;
       this.serverStatusService.updateConfiguration().subscribe(
         response => {
           this.notificationService.sendNotification(NotificationType.SUCCESS, `Services confuguration has been updated!`);
@@ -64,13 +90,127 @@ export class ServerStatusComponent implements OnInit {
   }
 
   checkBxServiceStatus() {
-    this.serverStatusService.checkUserServiceHealth().subscribe(
+    this.serverStatusService.checkBxServiceHealth().subscribe(
       response => {
-        this.userServiceStatus = response.status == 'UP';
+        this.bxServiceStatus = response.status == 'UP';
+        this.refreshing = this.getRefreshingValue();
       },
       (errorResponse: HttpErrorResponse) => {
         this.errorHandlingService.handleErrorResponseWithoutNotification(errorResponse);
-        this.userServiceStatus = false;
+        this.bxServiceStatus = false;
+        this.refreshing = this.getRefreshingValue();
+      }
+    );
+  }
+
+  checkConfigServerServiceStatus() {
+    this.serverStatusService.checkConfigServerServiceHealth().subscribe(
+      response => {
+        this.configServerServiceStatus = response.status == 'UP';
+        this.refreshing = this.getRefreshingValue();
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.errorHandlingService.handleErrorResponseWithoutNotification(errorResponse);
+        this.configServerServiceStatus = false;
+        this.refreshing = this.getRefreshingValue();
+      }
+    );
+  }
+
+  checkEmailVerificationServiceStatus() {
+    this.serverStatusService.checkEmailVerificationServiceHealth().subscribe(
+      response => {
+        this.emailVerificationServiceStatus = response.status == 'UP';
+        this.refreshing = this.getRefreshingValue();
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.errorHandlingService.handleErrorResponseWithoutNotification(errorResponse);
+        this.emailVerificationServiceStatus = false;
+        this.refreshing = this.getRefreshingValue();
+      }
+    );
+  }
+
+  checkEnergyBalanceServiceStatus() {
+    this.serverStatusService.checkEnergyBalanceServiceHealth().subscribe(
+      response => {
+        this.energyBalanceServiceStatus = response.status == 'UP';
+        this.refreshing = this.getRefreshingValue();
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.errorHandlingService.handleErrorResponseWithoutNotification(errorResponse);
+        this.energyBalanceServiceStatus = false;
+        this.refreshing = this.getRefreshingValue();
+      }
+    );
+  }
+
+  checkEurekaServerServiceStatus() {
+    this.serverStatusService.checkEurekaServerServiceHealth().subscribe(
+      response => {
+        this.eurekaServerServiceStatus = response.status == 'UP';
+        this.refreshing = this.getRefreshingValue();
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.errorHandlingService.handleErrorResponseWithoutNotification(errorResponse);
+        this.eurekaServerServiceStatus = false;
+        this.refreshing = this.getRefreshingValue();
+      }
+    );
+  }
+
+  checkGatewayServerServiceStatus() {
+    this.serverStatusService.checkGatewayServerServiceHealth().subscribe(
+      response => {
+        this.gatewayServerServiceStatus = response.status == 'UP';
+        this.refreshing = this.getRefreshingValue();
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.errorHandlingService.handleErrorResponseWithoutNotification(errorResponse);
+        this.gatewayServerServiceStatus = false;
+        this.refreshing = this.getRefreshingValue();
+      }
+    );
+  }
+
+  checkMealServiceStatus() {
+    this.serverStatusService.checkMealServiceHealth().subscribe(
+      response => {
+        this.mealServiceStatus = response.status == 'UP';
+        this.refreshing = this.getRefreshingValue();
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.errorHandlingService.handleErrorResponseWithoutNotification(errorResponse);
+        this.mealServiceStatus = false;
+        this.refreshing = this.getRefreshingValue();
+      }
+    );
+  }
+
+  checkPasswordResetServiceStatus() {
+    this.serverStatusService.checkPasswordResetServiceHealth().subscribe(
+      response => {
+        this.passwordResetServiceStatus = response.status == 'UP';
+        this.refreshing = this.getRefreshingValue();
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.errorHandlingService.handleErrorResponseWithoutNotification(errorResponse);
+        this.passwordResetServiceStatus = false;
+        this.refreshing = this.getRefreshingValue();
+      }
+    );
+  }
+
+  checkTrainingServiceStatus() {
+    this.serverStatusService.checkTrainingServiceHealth().subscribe(
+      response => {
+        this.trainingServiceStatus = response.status == 'UP';
+        this.refreshing = this.getRefreshingValue();
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.errorHandlingService.handleErrorResponseWithoutNotification(errorResponse);
+        this.trainingServiceStatus = false;
+        this.refreshing = this.getRefreshingValue();
       }
     );
   }
@@ -79,10 +219,12 @@ export class ServerStatusComponent implements OnInit {
     this.serverStatusService.checkUserServiceHealth().subscribe(
       response => {
         this.userServiceStatus = response.status == 'UP';
+        this.refreshing = this.getRefreshingValue();
       },
       (errorResponse: HttpErrorResponse) => {
         this.errorHandlingService.handleErrorResponseWithoutNotification(errorResponse);
         this.userServiceStatus = false;
+        this.refreshing = this.getRefreshingValue();
       }
     );
   }

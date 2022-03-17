@@ -24,7 +24,7 @@ export class ServerStatusService {
     return this.httpClient.get<any>(`${environment.configServerUrl}/actuator/health`);
   }
 
-  checEmailVerificationServiceHealth(): Observable<any> {
+  checkEmailVerificationServiceHealth(): Observable<any> {
     return this.httpClient.get<any>(`${environment.emailVerificationServiceUrl}/actuator/health`);
   }
 
