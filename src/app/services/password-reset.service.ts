@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PasswordResetService {
 
-  private passwordResetUrl = `${environment.apiUrl}/password-reset-service/api/password/reset`;
+  private passwordResetUrl = `${environment.gatewayServerUrl}/password-reset-service/api/password/reset`;
 
   constructor(private httpClient: HttpClient) { }
 

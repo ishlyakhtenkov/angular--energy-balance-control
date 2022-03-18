@@ -9,7 +9,7 @@ import { Meal } from '../common/meal';
 })
 export class MealService {
 
-  private mealsUrl = `${environment.apiUrl}/meal-service/api/meals`;
+  private mealsUrl = `${environment.gatewayServerUrl}/meal-service/api/meals`;
 
   constructor(private httpClient: HttpClient) { }
 

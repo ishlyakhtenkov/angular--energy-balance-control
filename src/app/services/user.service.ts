@@ -10,7 +10,7 @@ import { User } from '../common/user';
 })
 export class UserService {
 
-  private usersUrl = `${environment.apiUrl}/user-service/api/users`;
+  private usersUrl = `${environment.gatewayServerUrl}/user-service/api/users`;
 
   constructor(private httpClient: HttpClient) { }
 

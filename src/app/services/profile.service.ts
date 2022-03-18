@@ -11,7 +11,7 @@ import { UserTo } from '../common/user-to';
 })
 export class ProfileService {
 
-  private profileUrl = `${environment.apiUrl}/user-service/api/profile`;
+  private profileUrl = `${environment.gatewayServerUrl}/user-service/api/profile`;
 
   constructor(private httpClient: HttpClient) { }
 

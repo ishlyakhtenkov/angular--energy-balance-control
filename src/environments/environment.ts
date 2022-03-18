@@ -4,21 +4,13 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8028',
+  gatewayServerUrl: 'http://localhost:8028',
   eurekaUrl: 'http://localhost:8027',
   zipkinUrl: 'http://localhost:9411',
   kibanaUrl: 'http://localhost:5601',
   rabbitMqUrl: 'http://localhost:15672',
-  bxServiceUrl: 'http://localhost:8022',
   configServerUrl: 'http://localhost:8029',
-  emailVerificationServiceUrl: 'http://localhost:8024',
-  energyBalanceServiceUrl: 'http://localhost:8023',
-  eurekaServerUrl: 'http://localhost:8027',
-  gatewayServerUrl: 'http://localhost:8028',
-  mealServiceUrl: 'http://localhost:8020',
-  passwordResetServiceUrl: 'http://localhost:8026',
-  trainingServiceUrl: 'http://localhost:8021',
-  userServiceUrl: 'http://localhost:8025'
+  eurekaServerUrl: 'http://localhost:8027'
 };
 
 /*

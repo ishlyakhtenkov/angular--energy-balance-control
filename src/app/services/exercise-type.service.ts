@@ -10,7 +10,7 @@ import { ExerciseTypeTo } from '../common/exercise-type-to';
 })
 export class ExerciseTypeService {
 
-  private exerciseTypesUrl = `${environment.apiUrl}/training-service/api/exercise-types`;
+  private exerciseTypesUrl = `${environment.gatewayServerUrl}/training-service/api/exercise-types`;
 
   constructor(private httpClient: HttpClient) { }
 

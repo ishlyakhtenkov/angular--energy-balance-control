@@ -11,7 +11,7 @@ import { Roles } from '../enums/roles.enum';
 })
 export class AuthenticationService {
   
-  private host = environment.apiUrl;
+  private host = environment.gatewayServerUrl;
   private token: string;
   private loggedInUserEmail: string;
   private jwtHelper = new JwtHelperService();

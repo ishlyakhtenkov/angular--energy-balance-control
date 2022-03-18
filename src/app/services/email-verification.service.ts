@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class EmailVerificationService {
 
-  private emailVerificationUrl = `${environment.apiUrl}/email-verification-service/api/email/verify`;
+  private emailVerificationUrl = `${environment.gatewayServerUrl}/email-verification-service/api/email/verify`;
 
   constructor(private httpClient: HttpClient) { }
 

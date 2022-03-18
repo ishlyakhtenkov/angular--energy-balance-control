@@ -9,7 +9,7 @@ import { EnergyBalanceReport } from '../common/energy-balance-report';
 })
 export class EnergyBalanceService {
 
-  private energyBalanceUrl = `${environment.apiUrl}/energy-balance-service/api/energy-balance`;
+  private energyBalanceUrl = `${environment.gatewayServerUrl}/energy-balance-service/api/energy-balance`;
 
   constructor(private httpClient: HttpClient) { }
 

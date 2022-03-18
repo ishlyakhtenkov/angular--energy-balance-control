@@ -12,7 +12,7 @@ import { AuthenticationService } from '../services/authentication.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  private host = environment.apiUrl;
+  private host = environment.gatewayServerUrl;
 
   constructor(private authenticationService: AuthenticationService) {}
 

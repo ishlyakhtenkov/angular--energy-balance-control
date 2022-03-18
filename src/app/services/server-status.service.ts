@@ -17,7 +17,7 @@ export class ServerStatusService {
   }
 
   checkBxServiceHealth(): Observable<any> {
-    return this.httpClient.get<any>(`${environment.bxServiceUrl}/actuator/health`);
+    return this.httpClient.get<any>(`${environment.gatewayServerUrl}/bx-service/actuator/health`);
   }
 
   checkConfigServerServiceHealth(): Observable<any> {
@@ -25,11 +25,11 @@ export class ServerStatusService {
   }
 
   checkEmailVerificationServiceHealth(): Observable<any> {
-    return this.httpClient.get<any>(`${environment.emailVerificationServiceUrl}/actuator/health`);
+    return this.httpClient.get<any>(`${environment.gatewayServerUrl}/email-verification-service/actuator/health`);
   }
 
   checkEnergyBalanceServiceHealth(): Observable<any> {
-    return this.httpClient.get<any>(`${environment.energyBalanceServiceUrl}/actuator/health`);
+    return this.httpClient.get<any>(`${environment.gatewayServerUrl}/energy-balance-service/actuator/health`);
   }
 
   checkEurekaServerServiceHealth(): Observable<any> {
@@ -41,18 +41,18 @@ export class ServerStatusService {
   }
 
   checkMealServiceHealth(): Observable<any> {
-    return this.httpClient.get<any>(`${environment.mealServiceUrl}/actuator/health`);
+    return this.httpClient.get<any>(`${environment.gatewayServerUrl}/meal-service/actuator/health`);
   }
 
   checkPasswordResetServiceHealth(): Observable<any> {
-    return this.httpClient.get<any>(`${environment.passwordResetServiceUrl}/actuator/health`);
+    return this.httpClient.get<any>(`${environment.gatewayServerUrl}/password-reset-service/actuator/health`);
   }
 
   checkTrainingServiceHealth(): Observable<any> {
-    return this.httpClient.get<any>(`${environment.trainingServiceUrl}/actuator/health`);
+    return this.httpClient.get<any>(`${environment.gatewayServerUrl}/training-service/actuator/health`);
   }
 
   checkUserServiceHealth(): Observable<any> {
-    return this.httpClient.get<any>(`${environment.userServiceUrl}/actuator/health`);
+    return this.httpClient.get<any>(`${environment.gatewayServerUrl}/user-service/actuator/health`);
   }
 }
