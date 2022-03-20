@@ -1,10 +1,10 @@
 export const environment = {
   production: true,
-  gatewayServerUrl: '/',
-  eurekaUrl: 'http://eureka-server:8027',
-  zipkinUrl: 'http://zipkin:9411',
-  kibanaUrl: 'http://kibana:5601',
-  rabbitMqUrl: 'http://rabbitmq:15672',
-  configServerUrl: 'http://config-server:8029',
-  eurekaServerUrl: 'http://eureka-server:8027'
+  gatewayServerUrl: '/gateway',
+  eurekaServerUrl: '/eureka',
+  configServerUrl: '/configserver',
+  eurekaDashboardUrl: 'http://localhost:8027',
+  zipkinDashboardUrl: 'http://localhost:9411',
+  kibanaDashboardUrl: 'http://localhost:5601',
+  rabbitMqDashboardUrl: 'http://localhost:15672'
 };

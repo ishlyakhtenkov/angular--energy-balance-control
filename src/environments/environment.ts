@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   gatewayServerUrl: 'http://localhost:8028',
-  eurekaUrl: 'http://localhost:8027',
-  zipkinUrl: 'http://localhost:9411',
-  kibanaUrl: 'http://localhost:5601',
-  rabbitMqUrl: 'http://localhost:15672',
+  eurekaServerUrl: 'http://localhost:8027',
   configServerUrl: 'http://localhost:8029',
-  eurekaServerUrl: 'http://localhost:8027'
+  eurekaDashboardUrl: 'http://localhost:8027',
+  zipkinDashboardUrl: 'http://localhost:9411',
+  kibanaDashboardUrl: 'http://localhost:5601',
+  rabbitMqDashboardUrl: 'http://localhost:15672'
 };
 
 /*
