@@ -3,17 +3,17 @@
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12">
-        <div class="card card-registration card-registration-2 mt-3 mb-4" style="border-radius: 15px;">
+        <div class="card card-registration card-registration-2 mt-1 mb-1" style="border-radius: 15px;">
           <form *ngIf="registerFormGroup" [formGroup]="registerFormGroup" (ngSubmit)="onRegister()">
             <div formGroupName="user" class="text-left">
               <div class="card-body p-0">
                 <div class="row g-0">
                   <div class="col-lg-6">
                     <div class="p-5">
-                      <h3 class="fw-normal mb-5" style="color: #4835d4;">General Infomation</h3>
+                      <h3 class="fw-normal mb-2" style="color: #4835d4;">General Infomation</h3>
                       <div class="form-outline form-white mb-4">
                         <label class="form-label" for="name">Name</label>
-                        <input formControlName="name" type="text" class="form-control form-control-lg">
+                        <input formControlName="name" type="text" class="form-control form-control">
                         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
                           <div *ngIf="name.errors['required'] || name.errors['notOnlyWhitespace']">
                             Name is required
@@ -28,7 +28,7 @@
                       </div>
                       <div class="form-outline form-white mb-4">
                         <label class="form-label" for="email">Email</label>
-                        <input formControlName="email" type="email" class="form-control form-control-lg">
+                        <input formControlName="email" type="email" class="form-control form-control">
                         <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
                           <div *ngIf="email.errors['required']">
                             Email is required
@@ -43,7 +43,7 @@
                       </div>
                       <div class="form-outline form-white mb-4">
                         <label class="form-label" for="password">Password</label>
-                        <input formControlName="password" type="password" class="form-control form-control-lg">
+                        <input formControlName="password" type="password" class="form-control form-control">
                         <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
                           <div *ngIf="password.errors['required'] || password.errors['notOnlyWhitespace']">
                             Password is required
@@ -58,7 +58,7 @@
                       </div>
                       <div class="form-outline form-white mb-4">
                         <label class="form-label" for="confirmPassword">Confirm Password</label>
-                        <input formControlName="confirmPassword" type="password" class="form-control form-control-lg">
+                        <input formControlName="confirmPassword" type="password" class="form-control form-control">
                         <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="text-danger">
                           <div *ngIf="confirmPassword.errors['required'] || confirmPassword.errors['notOnlyWhitespace']">
                             Password confirmation required
@@ -73,10 +73,10 @@
 
                   <div class="col-lg-6 bg-indigo text-white">
                     <div class="p-5">
-                      <h3 class="fw-normal mb-5">Physiological Details</h3>
+                      <h3 class="fw-normal mb-2">Physiological Details</h3>
                       <div class="form-outline form-white mb-4">
                         <label class="form-label" for="age">Age</label>
-                        <input formControlName="age" type="number" class="form-control form-control-lg">
+                        <input formControlName="age" type="number" class="form-control form-control">
                         <div *ngIf="age.invalid && (age.dirty || age.touched)" class="text-danger">
                           <div *ngIf="age.errors['required']">
                             Age is required
@@ -91,7 +91,7 @@
                       </div>
                       <div class="form-outline form-white mb-4">
                         <label class="form-label" for="growth">Growth, cm</label>
-                        <input formControlName="growth" type="number" class="form-control form-control-lg">
+                        <input formControlName="growth" type="number" class="form-control form-control">
                         <div *ngIf="growth.invalid && (growth.dirty || growth.touched)" class="text-danger">
                           <div *ngIf="growth.errors['required']">
                             Growth is required
@@ -106,7 +106,7 @@
                       </div>
                       <div class="form-outline form-white mb-4">
                         <label class="form-label" for="weight">Weight, kg</label>
-                        <input formControlName="weight" type="number" class="form-control form-control-lg">
+                        <input formControlName="weight" type="number" class="form-control form-control">
                         <div *ngIf="weight.invalid && (weight.dirty || weight.touched)" class="text-danger">
                           <div *ngIf="weight.errors['required']">
                             Weight is required
@@ -136,9 +136,9 @@
                         </div>
                       </div>
 
-                      <button type="submit" [disabled]="registerFormGroup.invalid" class="btn btn-light btn-lg mt-4" data-mdb-ripple-color="dark">Register</button>
+                      <button type="submit" [disabled]="registerFormGroup.invalid" class="btn btn-light btn-lg mt-2" data-mdb-ripple-color="dark">Register</button>
 
-                      <p class="text-center text-white mt-5 mb-1">Have already an account? <a routerLink="/login" class="fw-bold text-dark"><u>Login here</u></a></p>
+                      <p class="text-center text-white mt-5 mb-0">Have already an account? <a routerLink="/login" class="fw-bold text-dark"><u>Login here</u></a></p>
                     </div>
                   </div>
                 </div>
