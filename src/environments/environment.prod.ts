@@ -3,8 +3,8 @@ export const environment = {
   gatewayServerUrl: '/gateway',
   eurekaServerUrl: '/eureka',
   configServerUrl: '/configserver',
-  eurekaDashboardUrl: 'http://localhost:8027',
-  zipkinDashboardUrl: 'http://localhost:9411',
-  kibanaDashboardUrl: 'http://localhost:5601',
-  rabbitMqDashboardUrl: 'http://localhost:15672'
+  eurekaDashboardUrl: 'http://javaprojects.ru:8027',
+  zipkinDashboardUrl: 'http://javaprojects.ru:9411',
+  kibanaDashboardUrl: 'http://javaprojects.ru:5601',
+  rabbitMqDashboardUrl: 'http://javaprojects.ru:15672'
 };
