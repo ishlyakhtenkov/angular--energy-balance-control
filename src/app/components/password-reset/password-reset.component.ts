@@ -41,7 +41,7 @@ export class PasswordResetComponent implements OnInit {
     this.passwordResetService.resetPassword(this.token, this.newPassword.value).subscribe(
       response => {
         this.router.navigateByUrl("/login");
-        this.notificationService.sendNotification(NotificationType.SUCCESS, 'Your password has been reset!');
+        this.notificationService.sendNotification(NotificationType.SUCCESS, 'Your password has been changed!');
       },
       (errorResponse: HttpErrorResponse) => {
         this.notificationService.sendNotifications(NotificationType.ERROR, errorResponse.error.details);
