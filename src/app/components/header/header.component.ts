@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { environment } from 'src/environments/environment';
@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  @ViewChild('navbarToggler') navbarToggler:ElementRef;
 
   environment = environment;
 
@@ -23,5 +24,15 @@ export class HeaderComponent implements OnInit {
 
   isAdmin(): boolean {
     return this.authenticationService.isAdmin();
+  }
+
+  navBarTogglerIsVisible() {
+    return this.navbarToggler.nativeElement.offsetParent !== null;
+  }
+
+  collapseNav() {
+    if (this.navBarTogglerIsVisible()) {
+      this.navbarToggler.nativeElement.click();
+    }
   }
 }

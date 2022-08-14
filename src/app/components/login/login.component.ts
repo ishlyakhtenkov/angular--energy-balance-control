@@ -135,4 +135,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   get emailForPassReset() {
     return this.sendPasswordResetEmailFormGroup.get('passwordResetEmail.emailForPassReset');
   }
+  
+  loginAsAdmin(): void {
+    this.onLogin('admin@gmail.com', 'admin');
+  }
+
+  loginAsUser(): void {
+    this.onLogin('user@gmail.com', 'password');
+  }
 }

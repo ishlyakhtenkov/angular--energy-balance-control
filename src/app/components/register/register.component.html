@@ -1,15 +1,15 @@
 <!-- Registration Form -->
 <section>
-  <div class="container py-5">
+  <div class="container py-md-5 py-3">
     <div class="row d-flex justify-content-center align-items-center">
-      <div class="col-9">
+      <div class="col-12 col-md-9">
         <div class="card card-registration card-registration-2" style="border-radius: 15px;">
           <form *ngIf="registerFormGroup" [formGroup]="registerFormGroup" (ngSubmit)="onRegister()">
             <div formGroupName="user" class="text-left">
               <div class="card-body p-0">
                 <div class="row g-0">
-                  <div class="col-lg-6 bg-gray" style="border-radius: 15px; border-top-right-radius: 0px;  border-bottom-right-radius: 0px;">
-                    <div class="p-5">
+                  <div class="col-lg-6 bg-gray">
+                    <div class="p-md-5 p-3">
                       <h3 class="fw-normal mb-2" style="color: #4835d4;">General Infomation</h3>
                       <div class="form-outline form-white mb-2">
                         <label class="form-label" for="name">Name</label>
@@ -72,7 +72,7 @@
                   </div>
 
                   <div class="col-lg-6 bg-indigo text-white">
-                    <div class="p-5">
+                    <div class="p-md-5 p-3">
                       <h3 class="fw-normal mb-2">Physiological Details</h3>
                       <div class="form-outline form-white mb-2">
                         <label class="form-label" for="age">Age</label>

@@ -1,10 +1,10 @@
 <!-- Services Status -->
 <div class="container mt-2">
-    <div class="row mt-2">
-        <div class="col-6">
+    <div class="row row-cols-1 row-cols-md-2 mt-2">
+        <div class="col col-md-6">
             <h2 class="text-secondary font-weight-bold"><i class="fa-solid fa-heart-pulse me-2"></i>Services Status</h2>
         </div>
-        <div class="col-6 text-end">
+        <div class="col col-md-6 text-end">
             <div class="btn-group">
                 <button type="button" (click)="updateConfiguration()" class="btn btn-warning ms-2 me-2" title="Update services configuration">
                     <i *ngIf="updating" class="fas fa-sync fa-spin"></i>
@@ -33,97 +33,99 @@
                 <div class="col-2"></div>
             </div>
         </div>
-        <div class="col-4"></div>
-        <div class="col-4">
-            <table class="table">
-                <thead class="table-dark">
-                    <tr align="center">
-                        <th class="align-middle">Service</th>
-                        <th class="align-middle">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="text-center">
-                        <td class="align-middle">BX Service</td>
-                        <td class="align-middle">
-                            <i *ngIf="bxServiceStatus == true" class="fa-solid fa-circle-up text-success"  title="Service is up"></i>
-                            <i *ngIf="bxServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger"  title="Service is down"></i>
-                            <i *ngIf="bxServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
-                        </td>
-                    </tr>
-                    <tr class="text-center">
-                        <td class="align-middle">Config Server</td>
-                        <td class="align-middle">
-                            <i *ngIf="configServerServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
-                            <i *ngIf="configServerServiceStatus == false" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
-                        </td>
-                    </tr>
-                    <tr class="text-center">
-                        <td class="align-middle">Email Verification Service</td>
-                        <td class="align-middle">
-                            <i *ngIf="emailVerificationServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
-                            <i *ngIf="emailVerificationServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger"  title="Service is down"></i>
-                            <i *ngIf="emailVerificationServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
-                        </td>
-                    </tr>
-                    <tr class="text-center">
-                        <td class="align-middle">Energy Balance Service</td>
-                        <td class="align-middle">
-                            <i *ngIf="energyBalanceServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
-                            <i *ngIf="energyBalanceServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger"  title="Service is down"></i>
-                            <i *ngIf="energyBalanceServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
-
-                        </td>
-                    </tr>
-                    <tr class="text-center">
-                        <td class="align-middle">Eureka Server</td>
-                        <td class="align-middle">
-                            <i *ngIf="eurekaServerServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
-                            <i *ngIf="eurekaServerServiceStatus == false" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
-                        </td>
-                    </tr>
-                    <tr class="text-center">
-                        <td class="align-middle">Gateway Server</td>
-                        <td class="align-middle">
-                            <i *ngIf="gatewayServerServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
-                            <i *ngIf="gatewayServerServiceStatus == false" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
-                        </td>
-                    </tr>
-                    <tr class="text-center">
-                        <td class="align-middle">Meal Service</td>
-                        <td class="align-middle">
-                            <i *ngIf="mealServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
-                            <i *ngIf="mealServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
-                            <i *ngIf="mealServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
-                        </td>
-                    </tr>
-                    <tr class="text-center">
-                        <td class="align-middle">Password Reset Service</td>
-                        <td class="align-middle">
-                            <i *ngIf="passwordResetServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
-                            <i *ngIf="passwordResetServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
-                            <i *ngIf="passwordResetServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
-                        </td>
-                    </tr>
-                    <tr class="text-center">
-                        <td class="align-middle">Training Service</td>
-                        <td class="align-middle">
-                            <i *ngIf="trainingServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
-                            <i *ngIf="trainingServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
-                            <i *ngIf="trainingServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
-                        </td>
-                    </tr>
-                    <tr class="text-center">
-                        <td class="align-middle">User Service</td>
-                        <td class="align-middle">
-                            <i *ngIf="userServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
-                            <i *ngIf="userServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
-                            <i *ngIf="userServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-xl-4 col-md-2"></div>
+        <div class="col-12 col-xl-4 col-md-8">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr align="center">
+                            <th class="align-middle">Service</th>
+                            <th class="align-middle">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td class="align-middle text-nowrap">BX Service</td>
+                            <td class="align-middle text-nowrap">
+                                <i *ngIf="bxServiceStatus == true" class="fa-solid fa-circle-up text-success"  title="Service is up"></i>
+                                <i *ngIf="bxServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger"  title="Service is down"></i>
+                                <i *ngIf="bxServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="align-middle text-nowrap">Config Server</td>
+                            <td class="align-middle text-nowrap">
+                                <i *ngIf="configServerServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
+                                <i *ngIf="configServerServiceStatus == false" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="align-middle text-nowrap">Email Verification Service</td>
+                            <td class="align-middle text-nowrap">
+                                <i *ngIf="emailVerificationServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
+                                <i *ngIf="emailVerificationServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger"  title="Service is down"></i>
+                                <i *ngIf="emailVerificationServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="align-middle text-nowrap">Energy Balance Service</td>
+                            <td class="align-middle text-nowrap">
+                                <i *ngIf="energyBalanceServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
+                                <i *ngIf="energyBalanceServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger"  title="Service is down"></i>
+                                <i *ngIf="energyBalanceServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
+    
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="align-middle text-nowrap">Eureka Server</td>
+                            <td class="align-middle text-nowrap">
+                                <i *ngIf="eurekaServerServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
+                                <i *ngIf="eurekaServerServiceStatus == false" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="align-middle text-nowrap">Gateway Server</td>
+                            <td class="align-middle text-nowrap">
+                                <i *ngIf="gatewayServerServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
+                                <i *ngIf="gatewayServerServiceStatus == false" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="align-middle text-nowrap">Meal Service</td>
+                            <td class="align-middle text-nowrap">
+                                <i *ngIf="mealServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
+                                <i *ngIf="mealServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
+                                <i *ngIf="mealServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="align-middle text-nowrap">Password Reset Service</td>
+                            <td class="align-middle text-nowrap">
+                                <i *ngIf="passwordResetServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
+                                <i *ngIf="passwordResetServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
+                                <i *ngIf="passwordResetServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="align-middle text-nowrap">Training Service</td>
+                            <td class="align-middle text-nowrap">
+                                <i *ngIf="trainingServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
+                                <i *ngIf="trainingServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
+                                <i *ngIf="trainingServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="align-middle text-nowrap">User Service</td>
+                            <td class="align-middle text-nowrap">
+                                <i *ngIf="userServiceStatus == true" class="fa-solid fa-circle-up text-success" title="Service is up"></i>
+                                <i *ngIf="userServiceStatus == false && gatewayServerServiceStatus == true" class="fa-solid fa-circle-down text-danger" title="Service is down"></i>
+                                <i *ngIf="userServiceStatus == false && gatewayServerServiceStatus == false" class="fa-solid fa-circle-question text-warning" title="Service status is unknown"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="col-4"></div>
+        <div class="col-xl-4 col-md-2"></div>
     </div>
 </div>

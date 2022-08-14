@@ -1,10 +1,10 @@
 <!-- Meals Table -->
 <div class="container mt-2">
-    <div class="row mt-2">
-        <div class="col-6">
+    <div class="row mt-2 mb-2 mb-md-0">
+        <div class="col-5 col-md-6">
             <h2 class="text-secondary font-weight-bold"><i class="fa-solid fa-utensils me-2"></i>Meals</h2>
         </div>
-        <div class="col-6 text-end">
+        <div class="col-7 col-md-6 text-end">
             <div class="btn-group">
                 <button type="button" (click)="makeMealAddFormGroup()" class="btn btn-info ms-2 me-2" data-bs-toggle="modal" data-bs-target="#addMealModal" title="Add new Meal">
                     <i class="fas fa-plus"></i> Add Meal
@@ -18,32 +18,35 @@
             </div>
         </div>
     </div>
-    <table *ngIf="meals?.length > 0" class="table">
-        <thead class="table-dark">
-            <tr align="center">
-                <th class="align-middle">Date/Time</th>
-                <th class="align-middle">Description</th>
-                <th class="align-middle">Calories</th>
-                <th class="align-middle">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let tempMeal of meals" align="center">
-                <td class="align-middle">{{ tempMeal.dateTime | date:'YYYY-MM-dd HH:mm' }}</td>
-                <td class="align-middle">{{ tempMeal.description }}</td>
-                <td class="align-middle">{{ tempMeal.calories }}</td>
-                <td class="align-middle">
-                    <button (click)="prepareMealEditFormGroup(tempMeal)" class="btn btn-outline-info btn-sm" title="Update Meal" data-bs-toggle="modal" data-bs-target="#editMealModal">
-                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                    </button>
-                    <button (click)="deleteMeal(tempMeal.id, tempMeal.description)" class="btn btn-outline-danger btn-sm ms-1" title="Delete Meal">
-                        <i class="fas fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 
+    <div class="table-responsive">
+        <table *ngIf="meals?.length > 0" class="table">
+            <thead class="table-dark">
+                <tr align="center">
+                    <th class="align-middle">Date/Time</th>
+                    <th class="align-middle">Description</th>
+                    <th class="align-middle">Calories</th>
+                    <th class="align-middle">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tempMeal of meals" align="center">
+                    <td class="align-middle text-nowrap">{{ tempMeal.dateTime | date:'YYYY-MM-dd HH:mm' }}</td>
+                    <td class="align-middle text-nowrap">{{ tempMeal.description }}</td>
+                    <td class="align-middle text-nowrap">{{ tempMeal.calories }}</td>
+                    <td class="align-middle text-nowrap">
+                        <button (click)="prepareMealEditFormGroup(tempMeal)" class="btn btn-outline-info btn-sm" title="Update Meal" data-bs-toggle="modal" data-bs-target="#editMealModal">
+                            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                        </button>
+                        <button (click)="deleteMeal(tempMeal.id, tempMeal.description)" class="btn btn-outline-danger btn-sm ms-1" title="Delete Meal">
+                            <i class="fas fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
     <!-- if meals is empty then display a message -->
     <div *ngIf="meals?.length == 0" class="container">
         <div class="row">
@@ -53,11 +56,11 @@
 
     <!-- Pagination Area -->
     <div class="footer-pagination">
-        <div class="row mt-3">
-            <div class="col-md-4"></div>
-            <div class="col-md-8">
+        <div class="row mt-3 mb-3">
+            <div class="col-xl-4"></div>
+            <div class="col-xl-8">
                 <div class="row">
-                    <div class="col-md-9" style="padding-left: 30%">
+                    <div id="paginationRow" class="col-md-9">
                         <ngb-pagination [(page)]="pageNumber" [pageSize]="pageSize" [collectionSize]="totalElements" [maxSize]="5" [boundaryLinks]="false" (pageChange)="listMeals()"></ngb-pagination>
                     </div>
                     <div class="col-md-3 mt-2 text-end">

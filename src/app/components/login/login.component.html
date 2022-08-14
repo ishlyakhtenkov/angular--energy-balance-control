@@ -1,22 +1,22 @@
 <!-- Login Window -->
 <section>
-  <div class="container py-5">
+  <div class="container py-md-5 py-2">
     <div class="row d-flex justify-content-center align-items-center">
-      <div class="col-4">
+      <div class="col-12 col-xl-4 col-md-8">
         <div class="card bg-dark text-white mt-2 mb-2" style="border-radius: 1rem;">
-          <div class="card-body p-5 text-center">
+          <div class="card-body p-md-5 p-4 text-center">
             <div class="pb-4">
               <h3 class="fw-bold mb-2 text-uppercase">Login</h3>
               <p class="text-white-50 mb-4">Please enter your login and password!</p>
               <form #loginForm="ngForm" (ngSubmit)="onLogin(usernameInput.value, passwordInput.value)">
-                <div class="form-outline form-white mb-3">
+                <div class="form-outline form-white mb-3 me-3 me-xl-0 ms-3 ms-xl-0">
                   <input type="email" autocomplete="username" name="userName" class="form-control" ngModel #usernameInput="ngModel" required />
                   <label class="form-label" for="username">
                     <span *ngIf="!usernameInput.touched || usernameInput.touched && !usernameInput.invalid">Email</span>
                     <span style="color:red;" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter an email</span>
                   </label>
                 </div>
-                <div class="form-outline form-white mb-3">
+                <div class="form-outline form-white mb-3 me-3 me-xl-0 ms-3 ms-xl-0">
                   <input type="password" autocomplete="current-password" name="password" class="form-control" ngModel #passwordInput="ngModel" required />
                   <label class="form-label" for="password">
                     <span *ngIf="!passwordInput.touched || passwordInput.touched && !passwordInput.invalid">Password</span>
@@ -43,6 +43,12 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row text-center mt-3">
+      <div class="col">
+        <button (click)="loginAsAdmin()" class="btn btn-outline-primary my-2 my-sm-0 me-2">Login as Admin</button>
+        <button (click)="loginAsUser()" class="btn btn-outline-primary my-2 my-sm-0">Login as User</button>  
       </div>
     </div>
   </div>

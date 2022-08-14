@@ -1,78 +1,92 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark box-shadow">
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark box-shadow fixed-top">
 	<div class="container">
-		<a href="#" class="navbar-brand font-weight-bold">
-			<img src="assets/images/scale.png" width="30" height="30" class="d-inline-block align-top" alt="">
+		<button #navbarToggler type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a href="#" class="navbar-brand font-weight-bold" title="Energy Balance Control">
+			<img src="assets/images/scale.png" width="30" height="30" class="d-inline-block align-top" alt="Energy Balance Control Logo">
 			Energy Balance Control
 		</a>
-
-		<ul class="navbar-nav me-auto">
-			<li [hidden]="!isAdmin()" class="nav-item">
-				<a class="nav-link" routerLink="/users">
-					<i class="fas fa-users"></i> Users
-				</a>
-			</li>
-			<li [hidden]="!isAdmin()" class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					<i class="fa-solid fa-gauge-simple-high"></i> Monitoring
-				</a>
-				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<li>
-						<a class="dropdown-item" routerLink="/server-status">
-							<i class="fa-solid fa-heart-pulse"></i> Services Status
-						</a>
-					</li>
-					<li>
-						<a target="_blank" class="dropdown-item" href="{{ environment.zipkinDashboardUrl }}">
-							<i class="fa-regular fa-circle-up"></i> Zipkin dashboard
-						</a>
-					</li>
-					<li>
-						<a target="_blank" class="dropdown-item" href="{{ environment.eurekaDashboardUrl }}">
-							<i class="fa-solid fa-share-nodes"></i> Eureka dashboard
-						</a>
-					</li>
-					<li>
-						<a target="_blank" class="dropdown-item" href="{{ environment.kibanaDashboardUrl }}">
-							<i class="fa-brands fa-servicestack"></i> Kibana dashboard
-						</a>
-					</li>
-					<li>
-						<a target="_blank" class="dropdown-item" href="{{ environment.rabbitMqDashboardUrl }}">
-							<i class="fa-brands fa-angellist"></i> Rabbit MQ dashboard
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li [hidden]="!isUserLoggedIn()" class="nav-item">
-				<a class="nav-link" routerLink="/meals">
-					<i class="fa-solid fa-utensils"></i> Meals
-				</a>
-			</li>
-			<li [hidden]="!isUserLoggedIn()" class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					<i class="fa-solid fa-person-running"></i> Trainings
-				</a>
-				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<li>
-						<a class="dropdown-item" routerLink="/exercises">
-							<i class="fa-solid fa-dumbbell"></i> Exercises
-						</a>
-					</li>
-					<li>
-						<a class="dropdown-item" routerLink="/exercise-types">
-							<i class="fa-solid fa-person-swimming"></i> Exercise Types
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li [hidden]="!isUserLoggedIn()" class="nav-item">
-				<a class="nav-link" routerLink="/energy-balance">
-					<i class="fa-solid fa-scale-unbalanced"></i> Energy Balance
-				</a>
-			</li>
-		</ul>
-
-		<a *ngIf="isUserLoggedIn()" routerLink="/profile" class="btn btn-sm btn-outline-secondary">
+		<div class="collapse navbar-collapse flex-row-reverse" id="navbar">
+			<ul class="navbar-nav me-auto">
+				<li [hidden]="!isUserLoggedIn()" class="nav-item d-xl-none">
+					<a class="nav-link" href="#">
+						<i class="fa fa-home"></i> Home
+					</a>
+				</li>
+				<li [hidden]="!isAdmin()" class="nav-item">
+					<a class="nav-link" routerLink="/users" (click)="collapseNav()">
+						<i class="fas fa-users"></i> Users
+					</a>
+				</li>
+				<li [hidden]="!isAdmin()" class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="fa-solid fa-gauge-simple-high"></i> Monitoring
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<li>
+							<a class="dropdown-item" routerLink="/server-status" (click)="collapseNav()">
+								<i class="fa-solid fa-heart-pulse"></i> Services Status
+							</a>
+						</li>
+						<li>
+							<a target="_blank" class="dropdown-item" href="{{ environment.zipkinDashboardUrl }}" (click)="collapseNav()">
+								<i class="fa-regular fa-circle-up"></i> Zipkin dashboard
+							</a>
+						</li>
+						<li>
+							<a target="_blank" class="dropdown-item" href="{{ environment.eurekaDashboardUrl }}" (click)="collapseNav()">
+								<i class="fa-solid fa-share-nodes"></i> Eureka dashboard
+							</a>
+						</li>
+						<li>
+							<a target="_blank" class="dropdown-item" href="{{ environment.kibanaDashboardUrl }}" (click)="collapseNav()">
+								<i class="fa-brands fa-servicestack"></i> Kibana dashboard
+							</a>
+						</li>
+						<li>
+							<a target="_blank" class="dropdown-item" href="{{ environment.rabbitMqDashboardUrl }}" (click)="collapseNav()">
+								<i class="fa-brands fa-angellist"></i> Rabbit MQ dashboard
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li [hidden]="!isUserLoggedIn()" class="nav-item">
+					<a class="nav-link" routerLink="/meals" (click)="collapseNav()">
+						<i class="fa-solid fa-utensils"></i> Meals
+					</a>
+				</li>
+				<li [hidden]="!isUserLoggedIn()" class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="fa-solid fa-person-running"></i> Trainings
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<li>
+							<a class="dropdown-item" routerLink="/exercises" (click)="collapseNav()">
+								<i class="fa-solid fa-dumbbell"></i> Exercises
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" routerLink="/exercise-types" (click)="collapseNav()">
+								<i class="fa-solid fa-person-swimming"></i> Exercise Types
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li [hidden]="!isUserLoggedIn()" class="nav-item">
+					<a class="nav-link" routerLink="/energy-balance" (click)="collapseNav()">
+						<i class="fa-solid fa-scale-unbalanced"></i> Energy Balance
+					</a>
+				</li>
+				<li class="nav-item d-xl-none">
+                    <a *ngIf="isUserLoggedIn()" class="nav-link" routerLink="/profile" (click)="collapseNav()">
+						<i class="fas fa-user-alt"></i> Profile
+					</a>
+                </li>
+			</ul>
+		</div>
+		
+		<a *ngIf="isUserLoggedIn()" routerLink="/profile" class="btn btn-sm btn-outline-secondary d-none d-xl-block">
 			<span>Profile</span>
 			<i class="fas fa-user-alt ms-1"></i>
 		</a>

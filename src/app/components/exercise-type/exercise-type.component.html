@@ -1,13 +1,14 @@
 <!-- Exercise Types Table -->
 <div class="container mt-2">
-    <div class="row mt-2">
-        <div class="col-6">
+    <div class="row mt-2 mb-2 mb-md-0">
+        <div class="col-7">
             <h2 class="text-secondary font-weight-bold"><i class="fa-solid fa-person-swimming me-2"></i>Exercise Types</h2>
         </div>
-        <div class="col-6 text-end">
+        <div class="col-5 text-end">
             <div class="btn-group">
                 <button type="button" (click)="makeExerciseTypeAddFormGroup()" class="btn btn-info ms-2 me-2" data-bs-toggle="modal" data-bs-target="#addExerciseTypeModal" title="Add new Exercise Type">
-                    <i class="fas fa-plus"></i> Add Exercise Type
+                    <span class="d-none d-md-block"><i class="fas fa-plus"></i> Add Exercise Type</span>
+                    <span class="d-md-none"><i class="fas fa-plus"></i>Add</span>  
                 </button>
             </div>
             <div class="btn-group">
@@ -18,32 +19,35 @@
             </div>
         </div>
     </div>
-    <table *ngIf="exerciseTypes?.length > 0" class="table">
-        <thead class="table-dark">
-            <tr align="center">
-                <th class="align-middle">Description</th>
-                <th class="align-middle">Measure</th>
-                <th class="align-middle">Calories Burned</th>
-                <th class="align-middle">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let tempExerciseType of exerciseTypes" align="center">
-                <td class="align-middle">{{ tempExerciseType.description }}</td>
-                <td class="align-middle">{{ tempExerciseType.measure }}</td>
-                <td class="align-middle">{{ tempExerciseType.caloriesBurned }}</td>
-                <td class="align-middle">
-                    <button (click)="prepareExerciseTypeEditFormGroup(tempExerciseType)" class="btn btn-outline-info btn-sm" title="Update Exercise Type" data-bs-toggle="modal" data-bs-target="#editExerciseTypeModal">
-                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-                    </button>
-                    <button (click)="deleteExerciseType(tempExerciseType.id, tempExerciseType.description)" class="btn btn-outline-danger btn-sm ms-1" title="Delete Exercise Type">
-                        <i class="fas fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 
+    <div class="table-responsive">
+        <table *ngIf="exerciseTypes?.length > 0" class="table">
+            <thead class="table-dark">
+                <tr align="center">
+                    <th class="align-middle text-nowrap">Description</th>
+                    <th class="align-middle text-nowrap">Measure</th>
+                    <th class="align-middle text-nowrap">Calories Burned</th>
+                    <th class="align-middle text-nowrap">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tempExerciseType of exerciseTypes" align="center">
+                    <td class="align-middle text-nowrap">{{ tempExerciseType.description }}</td>
+                    <td class="align-middle text-nowrap">{{ tempExerciseType.measure }}</td>
+                    <td class="align-middle text-nowrap">{{ tempExerciseType.caloriesBurned }}</td>
+                    <td class="align-middle text-nowrap">
+                        <button (click)="prepareExerciseTypeEditFormGroup(tempExerciseType)" class="btn btn-outline-info btn-sm" title="Update Exercise Type" data-bs-toggle="modal" data-bs-target="#editExerciseTypeModal">
+                            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                        </button>
+                        <button (click)="deleteExerciseType(tempExerciseType.id, tempExerciseType.description)" class="btn btn-outline-danger btn-sm ms-1" title="Delete Exercise Type">
+                            <i class="fas fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
     <!-- if exerciseTypes is empty then display a message -->
     <div *ngIf="exerciseTypes?.length == 0" class="container">
         <div class="row">
